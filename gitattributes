@@ -1,0 +1,9 @@
+# Keep both sides when two branches add rows to the same file.
+docs/languages.csv merge=union
+status/*.md merge=union
+changes/*.md merge=union
+
+# Normalise line endings.
+* text=auto
+*.ps1 text eol=crlf
+*.sh  text eol=lf

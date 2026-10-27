@@ -1,25 +1,33 @@
 # AGENTS.md
 
-Rules for every AI agent and LLM working in this repository. Humans should follow them too.
-CLAUDE.md is an exact copy of this file. Only the owner edits either one. CI fails if they differ.
+Rules for every AI agent and LLM working in this repository. Humans should
+follow them too. CLAUDE.md is an exact copy of this file. Only the owner edits
+either one. CI fails if they differ.
 
 ## Owner settings
 
 Branch protection: none
 
-- `enforced`: public repo, or private repo on a paid plan with the ruleset from BUILD.md set up.
-- `none`: private repo on the free plan. GitHub cannot enforce the rules, so you are the guard.
+- `enforced`: public repo, or private repo on a paid plan with the ruleset
+  from `docs/BUILD.md` set up.
+- `none`: private repo on the free plan. GitHub cannot enforce the rules, so
+  you are the guard.
 
 ## 0. Language (critical)
 
 Everything is in English. Always. No exceptions.
 
-- This applies no matter which language the user writes in to the AI, agent or any other tool.
-- It covers code, comments, commit messages, pull requests, documentation, file names, logs, error messages and the agent's own replies about the repository.
-- If the user wants another language for the end users of the product, do not translate inline. Add it to `languages.csv`:
+- This applies no matter which language the user writes in to the AI, agent or
+  any other tool.
+- It covers code, comments, commit messages, pull requests, documentation,
+  file names, logs, error messages and the agent's own replies about the
+  repository.
+- If the user wants another language for the end users of the product, do not
+  translate inline. Add it to `docs/languages.csv`:
   - One row per text, with a stable key (for example `btn.install`).
   - The `en` column is the source and is always filled in first.
-  - Each extra language is one more column. Add the column only when it is requested.
+  - Each extra language is one more column. Add the column only when it is
+    requested.
   - A missing translation falls back to English.
   - Never use the English sentence itself as the key.
   - Keep the file UTF-8.
@@ -27,9 +35,11 @@ Everything is in English. Always. No exceptions.
 ## 1. Think before coding
 
 - State your assumptions before you implement.
-- If a request can be read in more than one way, list the readings and ask. Do not pick one silently.
+- If a request can be read in more than one way, list the readings and ask. Do
+  not pick one silently.
 - If something is unclear, stop and name what is unclear.
-- If a simpler approach exists, say so. Push back when the request looks wrong.
+- If a simpler approach exists, say so. Push back when the request looks
+  wrong.
 
 ## 2. Simplicity first
 
@@ -43,89 +53,145 @@ Everything is in English. Always. No exceptions.
 - Touch only what the request needs.
 - Do not reformat, rename or "improve" unrelated code.
 - Match the existing style, even if you would do it differently.
-- Remove only the leftovers your own change created. If you notice other dead code, mention it and leave it.
+- Remove only the leftovers your own change created. If you notice other dead
+  code, mention it and leave it.
 
 ## 4. Goal-driven execution
 
-- Turn the task into a check that can be verified (a test, a command, an expected output).
-- State a short plan with a check for each step, then work until the checks pass.
-- Do not claim something works unless you ran it. If you could not run it, say so.
+- Turn the task into a check that can be verified (a test, a command, an
+  expected output).
+- State a short plan with a check for each step, then work until the checks
+  pass.
+- Do not claim something works unless you ran it. If you could not run it, say
+  so.
 
 These rules favor caution over speed. For trivial tasks, use judgment.
 
-## 5. Files
+## 5. Context budget (critical)
 
-Do not open, read, search or edit `TLDR.txt`. It is for humans only. If someone asks about it, say it is for humans and skip it.
+- Before you start, estimate how much of your context window this task will
+  use.
+- If you expect to pass 60%, stop before you start.
+- Split the task into smaller tasks, one per agent, or hand it over.
+- An agent that is past 60% starts to drift and takes shortcuts. A handover is
+  not a failure. It is the correct action.
+- Do not begin work you cannot finish cleanly.
+
+## 6. Debugging
+
+- A debugging agent must not change business code directly.
+- Write a diagnosis and a proposed change in `status/<slug>.md`.
+- A separate Builder agent implements the change.
+- This prevents a debugging agent from "fixing" one problem and creating
+  another.
+
+## 7. Roles
+
+`docs/PLANNER.md` defines the roles Planner, Builder and Reviewer, and the flow
+between them. Read it before you start a task.
+
+- The Reviewer must be a different agent instance than the Builder.
+- A rejected review is normal. The Builder redoes the task. No hard feelings.
+
+## 8. Files
+
+Do not open, read, search or edit `docs/TLDR.txt`. It is for humans only. If
+someone asks about it, say it is for humans and skip it.
 
 Who may change what:
 
-- Owner only: `AGENTS.md`, `CLAUDE.md`, `TLDR.txt`. Never edit them.
-- Generated by the release step: `VERSIONS.md` and the features table in `README.md`. Never edit them in a normal task.
-- `README.md` (everything outside the features table) and `BUILD.md`: change them only in a separate small pull request that touches nothing else.
-- `STATUS.md`: explains the `status/` folder. Do not edit it.
-- `languages.csv`: add new rows at the end. Never reorder or reformat the file.
+- Owner only: `AGENTS.md`, `CLAUDE.md`, `docs/TLDR.txt`. Never edit them.
+- Generated by the release step: `docs/VERSIONS.md` and the features table in
+  `README.md`. Never edit them in a normal task.
+- `README.md` (everything outside the features table), `docs/BUILD.md`,
+  `docs/PLANNER.md`: change them only in a separate small pull request that
+  touches nothing else. A change to `docs/PLANNER.md` must explain why the
+  plan needs to change.
+- `docs/STATUS.md`: explains the `status/` folder. Do not edit it.
+- `docs/languages.csv`: add new rows at the end. Never reorder or reformat the
+  file.
 - `.github/`: do not change it unless the task is about it.
 
-## 6. Working in parallel
+## 9. Working in parallel
 
-Many agents work at the same time on many branches. These rules keep them from colliding.
+Many agents work at the same time on many branches. These rules keep them from
+colliding.
 
-- One task is one branch is one pull request. Branch names: `feat/<slug>`, `fix/<slug>`, `docs/<slug>`.
-- Before you start, read the files in `status/`. They list which files other tasks are changing. If your files overlap, pick another task or ask the owner.
-- Create `status/<slug>.md` from `status/_TEMPLATE.md`, set the state to `In progress` and push it as your first commit.
+- One task is one branch is one pull request. Branch names: `feat/<slug>`,
+  `fix/<slug>`, `docs/<slug>`, `debug/<slug>`.
+- Before you start, read the files in `status/`. They list which files other
+  tasks are changing. If your files overlap, pick another task or ask the
+  owner.
+- Create `status/<slug>.md` from `status/_TEMPLATE.md`, set the state to
+  `In progress` and push it as your first commit.
 - Keep pull requests small. Small and often beats big and late.
-- Add exactly one file to `changes/` from `changes/_TEMPLATE.md`. You choose `type` and `bump`. You never choose a version number.
-- Rebase on main before you open the pull request. If the pull request shows conflicts or is behind main, rebase and push again.
+- Add exactly one file to `changes/` from `changes/_TEMPLATE.md`. You choose
+  `type` and `bump`. You never choose a version number.
+- Rebase on main before you open the pull request. If the pull request shows
+  conflicts or is behind main, rebase and push again.
 - Your last commit sets the state in your status file to `Done`.
 - Never merge. Never approve your own pull request. Never push to main.
 - Never change repository settings, rulesets, labels or secrets.
 
-The label `ready` means CI is green and there are no conflicts. It does not mean the change is correct. The owner reviews and merges.
+The label `ready` means CI is green and there are no conflicts. It does not
+mean the change is correct. The owner reviews and merges.
 
-## 7. Branch protection mode
+## 10. Branch protection mode
 
 Follow the block that matches `Branch protection:` at the top.
 
 If `enforced`:
 
 - GitHub blocks direct pushes to main and merges with failing checks.
-- Do not look for ways around it. No admin overrides, no disabling rules, no editing rulesets.
+- Do not look for ways around it. No admin overrides, no disabling rules, no
+  editing rulesets.
 
 If `none`:
 
 - Nothing technical stops a push to main. Only this rule does.
-- Never push to main, even if you have the rights and even if the change is tiny.
-- If you pushed to main by mistake, stop and tell the owner right away. Do not try to fix it with a force push.
+- Never push to main, even if you have the rights and even if the change is
+  tiny.
+- If you pushed to main by mistake, stop and tell the owner right away. Do not
+  try to fix it with a force push.
 
-## 8. Versioning
+## 11. Versioning
 
 - Semantic Versioning (MAJOR.MINOR.PATCH), Keep a Changelog layout.
-- The release step reads `changes/`, picks the version (the biggest `bump` wins) and writes `VERSIONS.md` and the features table in `README.md`.
-- If a change adds a user-visible feature, fill in the `feature:` line in your change file. That is how the feature gets its "Since version" entry.
+- The release step reads `changes/`, picks the version (the biggest `bump`
+  wins) and writes `docs/VERSIONS.md` and the features table in `README.md`.
+- If a change adds a user-visible feature, fill in the `feature:` line in your
+  change file. That is how the feature gets its "Since version" entry.
 
-## 9. Build and release
+## 12. Build and release
 
-- Every program is built by GitHub Actions. Do not rely on local builds for releases.
-- The rules per program type and platform are in `BUILD.md`. Follow them exactly.
-- If a user must type a command in a terminal to install, it must be shown very clearly in `READ_ME_FIRST.txt` at the root of the release zip.
+- Every program is built by GitHub Actions. Do not rely on local builds for
+  releases.
+- The rules per program type and platform are in `docs/BUILD.md`. Follow them
+  exactly.
+- If a user must type a command in a terminal to install, it must be shown
+  very clearly in `docs/READ_ME_FIRST.txt` and inside the release zip.
 
-## 10. Secrets and safety
+## 13. Secrets and safety
 
 - Never commit passwords, tokens, keys or certificates.
 - Use GitHub Actions secrets for anything sensitive.
-- Never run destructive commands (delete, force push, reset) without asking first.
+- Never run destructive commands (delete, force push, reset) without asking
+  first.
 
-## 11. Definition of done
+## 14. Definition of done
 
 A task is done when:
 
-- The change works and you verified it, or you stated clearly what you could not verify.
+- The change works and you verified it, or you stated clearly what you could
+  not verify.
 - One valid file is in `changes/`.
 - Your status file says `Done`.
-- New user-facing texts are in `languages.csv`.
+- A Reviewer agent has approved it and the approval is noted in the status
+  file.
+- New user-facing texts are in `docs/languages.csv`.
 - CI is green on the pull request.
 
-## 12. Style
+## 15. Style
 
 - Short, direct, plain wording. No marketing language. No emojis.
 - If you are not sure about something, say so plainly instead of guessing.
