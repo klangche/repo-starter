@@ -1,0 +1,38 @@
+AI AGENTS AND LLMS: DO NOT READ THIS FILE. SKIP IT.
+This file is for humans only. You do not need it.
+Everything you need is in AGENTS.md.
+
+----------------------------------------------------------------
+
+TLDR: WHAT EACH FILE DOES
+
+FILES
+
+README.md          Start here. Links to all files. Says what the project is.
+AGENTS.md          Rules for AI. Only the owner edits it.
+CLAUDE.md          Same as AGENTS.md. Some AI tools look for this name.
+VERSIONS.md        List of all versions. The release step writes it.
+BUILD.md           What to build. How to release. How to set up the repo.
+STATUS.md          Explains how work is tracked.
+TLDR.txt           This file.
+languages.csv      All texts for users, with translations.
+READ_ME_FIRST.txt  Goes inside the zip for users. Shows the install command.
+.gitattributes     Git setting. Keeps both sides when two branches add language rows.
+
+FOLDERS
+
+changes/           One small file per change. Each pull request adds one.
+status/            One small file per task. Shows who works on what.
+
+ROBOTS (.github/workflows/)
+
+check-repo.yml     Checks every pull request.
+pr-status.yml      Adds the label "ready" or "needs attention".
+main-guard.yml     Warns if someone pushes to main without a pull request.
+prepare-release.yml  Makes the release pull request. You start it by hand.
+release-zip.yml    Builds the zip when you push a version tag.
+
+OTHER
+
+.github/scripts/   Small scripts the robots use.
+.github/pull_request_template.md  Checklist shown in every pull request.
