@@ -10,6 +10,7 @@
 - [docs/BUILD.md](docs/BUILD.md): what to build, how to release, repository setup
 - [docs/CODING.md](docs/CODING.md): coding standard for every language
 - [docs/ADOPT.md](docs/ADOPT.md): start a new project or add this starter to an existing one
+- [docs/SPEC.md](docs/SPEC.md): what the project builds, and the backlog
 - [docs/STATUS.md](docs/STATUS.md): how work is tracked
 - [docs/TLDR.txt](docs/TLDR.txt): one-line summary of every file (humans only, AI skips it)
 - [docs/languages.csv](docs/languages.csv): translations of all user-facing texts
@@ -19,8 +20,9 @@
 
 ## Start here
 
-- New project: follow `docs/ADOPT.md`, "New project". Then prompt the agent
-  with what to build.
+- New project: follow `docs/ADOPT.md`, "New project". Prompt the agent with
+  what to build. Its first pull request resets the copy and fills in
+  `docs/SPEC.md`. Review the spec and merge, then the building starts.
 - Existing project: copy this starter in and ask the agent to follow
   `docs/ADOPT.md`, "Existing project".
 

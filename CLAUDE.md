@@ -95,6 +95,11 @@ These rules favor caution over speed. For trivial tasks, use judgment.
 `docs/PLANNER.md` defines the roles Planner, Builder and Reviewer, and the flow
 between them. Read it before you start a task.
 
+`docs/SPEC.md` says what the project builds and holds the backlog. Read it
+before you start a task. While its "Goal" says `Not filled in yet`, the only
+allowed task is the setup pull request in `docs/ADOPT.md`. This does not apply
+in `klangche/repo-starter` itself, where the starter is the product.
+
 - The Reviewer must be a different agent instance than the Builder.
 - A rejected review is normal. The Builder redoes the task. No hard feelings.
 
@@ -112,6 +117,12 @@ Who may change what:
   `docs/PLANNER.md`: change them only in a separate small pull request that
   touches nothing else. A change to `docs/PLANNER.md` must explain why the
   plan needs to change.
+- `docs/SPEC.md`: change it only in a separate small pull request that
+  touches nothing else, and explain why. A task pull request may add or tick
+  its own line in the backlog.
+- The setup pull request in `docs/ADOPT.md` is the one exception to the rules
+  above for `README.md`, `docs/BUILD.md`, `docs/SPEC.md`, `docs/PLANNER.md`,
+  `docs/VERSIONS.md` and `docs/languages.csv`. It changes them together, once.
 - `docs/CODING.md`: change it only in a separate small pull request that
   touches nothing else, and explain why the standard needs to change.
 - `docs/STATUS.md`: explains the `status/` folder. Do not edit it.

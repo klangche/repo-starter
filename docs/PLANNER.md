@@ -25,7 +25,13 @@ the Builder and Reviewer roles for the same task.
 
 ## Flow
 
-1. Planner reads the task and writes the plan into `status/<slug>.md` under
+0. Setup, once per project: while "Goal" in `docs/SPEC.md` says
+   `Not filled in yet`, the Planner
+   does the setup pull request in `docs/ADOPT.md` first. Builders start after
+   the owner merges it.
+1. Planner takes the next open task from the backlog in `docs/SPEC.md`, or the
+   task the owner gives. A new task is added to the backlog by its own task
+   pull request. The Planner writes the plan into `status/<slug>.md` under
    `plan:`. One line per step, each with a check.
 2. Planner estimates the context cost. If any step is likely to pass 60%,
    split it or hand it to another agent.
@@ -61,3 +67,6 @@ why. This is how a new agent understands the plan without reading old pull
 requests.
 
 <!-- NEWEST ENTRY BELOW THIS LINE -->
+- 2026-10-28: added `docs/SPEC.md` and the setup pull request (step 0). Plans
+  lived only in status files, which the release step deletes, so there was no
+  place for the product goal, stack, architecture and backlog.

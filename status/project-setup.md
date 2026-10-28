@@ -1,7 +1,7 @@
 ---
 task: Product-level planning (SPEC.md), reset step for copies, one setup pull request
 who: Claude Code
-state: In progress
+state: Review
 branch: docs/project-setup
 files: docs/SPEC.md, docs/ADOPT.md, docs/PLANNER.md, AGENTS.md, CLAUDE.md, README.md
 plan: |
