@@ -121,7 +121,8 @@ Who may change what:
 - `docs/SPEC.md`: change it only in a separate small pull request that
   touches nothing else, and explain why. A task pull request may add or tick
   its own line in the backlog.
-- The setup pull request in `docs/ADOPT.md` is the one exception to the rules
+- The setup pull request, or the adoption pull request, in `docs/ADOPT.md`
+  is the one exception to the rules
   above for `README.md`, `docs/BUILD.md`, `docs/SPEC.md`, `docs/PLANNER.md`,
   `docs/VERSIONS.md`, `docs/languages.csv`, `changes/` and `status/`. It
   changes them together, once.

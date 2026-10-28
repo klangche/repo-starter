@@ -1,7 +1,7 @@
 ---
 task: Product-level planning (SPEC.md), reset step for copies, one setup pull request
 who: Claude Code
-state: Review
+state: Done
 branch: docs/project-setup
 files: docs/SPEC.md, docs/ADOPT.md, docs/PLANNER.md, AGENTS.md, CLAUDE.md, README.md
 plan: |
@@ -15,7 +15,8 @@ review: |
   and BUILD.md list. Fixed, plus: setup PR roles (Planner, Reviewer, owner),
   changes/ and status/ in the AGENTS.md exception, adoption PR allowed while
   SPEC is empty, backlog claims via open PRs and branches, Install placeholder,
-  PLANNER.md wrap. Re-review pending. Not done: docs/SPEC.md in check.yml
+  PLANNER.md wrap. Re-review approved. Its note fixed too:
+  the AGENTS.md exception also names the adoption pull request. Not done: docs/SPEC.md in check.yml
   required files (.github out of scope).
 updated: 2026-10-28
 ---
