@@ -97,7 +97,8 @@ between them. Read it before you start a task.
 
 `docs/SPEC.md` says what the project builds and holds the backlog. Read it
 before you start a task. While its "Goal" says `Not filled in yet`, the only
-allowed task is the setup pull request in `docs/ADOPT.md`. This does not apply
+allowed task is the setup pull request, or for an existing project the adoption
+pull request, in `docs/ADOPT.md`. This does not apply
 in `klangche/repo-starter` itself, where the starter is the product.
 
 - The Reviewer must be a different agent instance than the Builder.
@@ -122,7 +123,8 @@ Who may change what:
   its own line in the backlog.
 - The setup pull request in `docs/ADOPT.md` is the one exception to the rules
   above for `README.md`, `docs/BUILD.md`, `docs/SPEC.md`, `docs/PLANNER.md`,
-  `docs/VERSIONS.md` and `docs/languages.csv`. It changes them together, once.
+  `docs/VERSIONS.md`, `docs/languages.csv`, `changes/` and `status/`. It
+  changes them together, once.
 - `docs/CODING.md`: change it only in a separate small pull request that
   touches nothing else, and explain why the standard needs to change.
 - `docs/STATUS.md`: explains the `status/` folder. Do not edit it.

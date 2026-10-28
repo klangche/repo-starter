@@ -17,24 +17,26 @@ exists. Written so an AI agent can follow it step by step.
 
 ## Setup pull request
 
-One pull request, branch `docs/setup`, done by the Planner. It is the only
-pull request that may change all of these files together.
+One pull request, branch `docs/setup`. The Planner writes it, a Reviewer
+reviews it (`docs/PLANNER.md`), the owner merges it. It is the only pull
+request that may change all of these files together.
 
 1. Reset what the copy inherited from the starter:
    - `changes/` and `status/`: delete every file except `README.md` and
      `_TEMPLATE.md`.
    - `docs/VERSIONS.md`: delete everything below the marker line
      `<!-- NEWEST VERSION BELOW THIS LINE -->`.
-   - `README.md`: replace `PROJECT NAME`, and delete the example row in the
-     features table.
-   - `docs/BUILD.md`: delete the example row in the build list.
+   - `README.md`: replace `PROJECT NAME`, and delete every row in the
+     features table below the header.
+   - `docs/BUILD.md`: delete every row in the build list below the header.
    - `docs/languages.csv`: keep only the header `key,en`.
    - `docs/PLANNER.md`: delete the entries in the decision log.
    - `docs/TLDR.txt` is owner only. The agent tells the owner to update it.
 2. Fill in `docs/SPEC.md`. The agent proposes the languages and stack, lists
    what is unclear, and asks the owner. It does not guess.
 3. Fill in `project-type` and `languages` in `docs/BUILD.md` from the spec.
-4. Fill in "What it is" and "Install" in `README.md`.
+4. Fill in "What it is" in `README.md`. "Install" may say "Not available
+   yet" until there is something to install.
 5. Add the status file and one change file, as for any task.
 6. The owner reviews the spec and merges. Merging is the approval.
 

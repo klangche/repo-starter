@@ -26,9 +26,9 @@ the Builder and Reviewer roles for the same task.
 ## Flow
 
 0. Setup, once per project: while "Goal" in `docs/SPEC.md` says
-   `Not filled in yet`, the Planner
-   does the setup pull request in `docs/ADOPT.md` first. Builders start after
-   the owner merges it.
+   `Not filled in yet`, the Planner does the setup pull request (or the
+   adoption pull request for an existing project) in `docs/ADOPT.md` first.
+   Builders start after the owner merges it.
 1. Planner takes the next open task from the backlog in `docs/SPEC.md`, or the
    task the owner gives. A new task is added to the backlog by its own task
    pull request. The Planner writes the plan into `status/<slug>.md` under

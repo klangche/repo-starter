@@ -40,8 +40,9 @@ What this project will not do.
 ## Backlog
 
 One line per task, in the order to build them. Each task fits in one pull
-request and has a check. Agents take the first open task that no status file
-in `status/` claims.
+request and has a check. Agents take the first open task that no open pull
+request or branch already works on. Use the task text as the task title in
+the status file, so others can match it.
 
 - [ ] task, check: how to verify it
 
