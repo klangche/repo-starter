@@ -1,7 +1,7 @@
 ---
 task: Add the four CI workflows described in docs/BUILD.md
 who: Claude Code
-state: In progress
+state: Review
 branch: feat/ci-workflows
 files: .github/workflows/check.yml, .github/workflows/pr-status.yml, .github/workflows/main-guard.yml, .github/workflows/prepare-release.yml
 plan: |
