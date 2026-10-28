@@ -1,3 +1,10 @@
+```
+Set up this repository with the standards from https://github.com/klangche/repo-starter. Read its README and follow the steps for AI agents.
+```
+
+Paste this into any AI agent, in any repository: new, copied or one that
+already has code. Then tell it what to build.
+
 # repo-starter
 
 Rules, docs and GitHub workflows that make AI agents build software the same
@@ -10,13 +17,8 @@ You do not fork or copy this repository. Point your AI agent at it.
 ## Use it
 
 Open your project in your AI agent (Claude Code, Codex, Copilot or another)
-and paste:
-
-```
-Set up this repository with the standards from https://github.com/klangche/repo-starter. Read its README and follow the steps for AI agents.
-```
-
-Then tell it what to build, or what the project is.
+and paste the line at the top of this page. Then tell it what to build, or
+what the project is.
 
 What happens:
 
