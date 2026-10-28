@@ -1,29 +1,48 @@
 # Adopt
 
-How to start a project from this starter, or add it to a project that already
-exists. Written so an AI agent can follow it step by step.
+How an AI agent adds this standard to a project, new or existing. The owner
+starts it with the prompt in the README of
+https://github.com/klangche/repo-starter.
 
-## New project (blank start)
+- The repository has no code yet (at most the `README.md`, `LICENSE` or
+  `.gitignore` that GitHub created): do the setup pull request.
+- The repository already has code: do the adoption pull request.
 
-1. Create the repository from this one (GitHub "Use this template", or copy
-   the files). It holds `AGENTS.md`, `CLAUDE.md`, `.github/` and `template/`.
-2. The owner sets `Branch protection:` in `AGENTS.md` and `CLAUDE.md`, and
-   does the one-time settings in `docs/BUILD.md`, "Repository setup".
-3. The owner prompts the agent with what to build.
-4. The first task is the setup pull request below. No other work starts until
-   the owner has merged it.
-5. After that, agents take tasks from the backlog in `docs/SPEC.md`, one task
-   per pull request (`docs/PLANNER.md`).
+## Get the files
+
+Clone the starter outside the project and copy from the clone:
+
+```
+git clone --depth 1 https://github.com/klangche/repo-starter.git /tmp/repo-starter
+```
+
+If cloning is not possible, download the same paths from
+`https://raw.githubusercontent.com/klangche/repo-starter/main/<path>`.
+
+Copy into the project root:
+
+- `AGENTS.md` and `CLAUDE.md`
+- every file in `.github/workflows/`
+- everything inside `template/`, including `.gitignore` and `.gitattributes`,
+  placed at the root. Not the `template/` folder itself.
+
+Do not copy the starter's own `README.md` from its root. The project gets
+`template/README.md`. Delete the clone when done.
+
+`Branch protection:` at the top of `AGENTS.md` and `CLAUDE.md`: ask the owner
+which value applies (see `docs/BUILD.md`, "Repository setup") and write it in
+both files. That is the only edit an agent makes to them.
 
 ## Setup pull request
 
 One pull request, branch `docs/setup`. The Planner writes it, a Reviewer
 reviews it (`docs/PLANNER.md`), the owner merges it. It is the only pull
-request that may change all of these files together.
+request that may change all of these files together. No other work starts
+until the owner has merged it.
 
-1. Move the contents of `template/` to the root and delete the empty folder:
-   `git mv template/* template/.gitignore template/.gitattributes . && rmdir template`
-2. Reset what the copy inherited from the starter:
+1. Get the files (above). Files GitHub created: `README.md` is replaced by the
+   template, `LICENSE` stays, `.gitignore` gets the missing lines added.
+2. Reset what came with the files from the starter:
    - `changes/` and `status/`: delete every file except `README.md` and
      `_TEMPLATE.md`.
    - `docs/VERSIONS.md`: delete everything below the marker line
@@ -33,7 +52,8 @@ request that may change all of these files together.
    - `docs/BUILD.md`: delete every row in the build list below the header.
    - `docs/languages.csv`: keep only the header `key,en`.
    - `docs/PLANNER.md`: delete the entries in the decision log.
-   - `docs/TLDR.txt` is owner only. The agent tells the owner to update it.
+   - `docs/TLDR.txt` is owner only from now on. The agent tells the owner to
+     read it.
 3. Fill in `docs/SPEC.md`. The agent proposes the languages and stack, lists
    what is unclear, and asks the owner. It does not guess.
 4. Fill in `project-type` and `languages` in `docs/BUILD.md` from the spec.
@@ -42,17 +62,18 @@ request that may change all of these files together.
 6. Add the status file and one change file, as for any task.
 7. The owner reviews the spec and merges. Merging is the approval.
 
-## Existing project
+After that, agents take tasks from the backlog in `docs/SPEC.md`, one task per
+pull request (`docs/PLANNER.md`).
 
-The agent does this on one branch in one pull request. It does not change the
-existing code in the same pull request.
+## Adoption pull request (existing project)
+
+One pull request, branch `docs/adopt`. It does not change the existing code.
 
 1. Read the existing repository first: languages, folder layout, build,
    formatter and linter settings, CI, `.gitignore`.
-2. Copy the starter files that do not exist yet: `AGENTS.md`, `CLAUDE.md`,
-   `.github/workflows/`, and the contents of `template/` placed at the root
-   (not the `template/` folder itself). Never overwrite an existing file. Then
-   apply the reset in "Setup pull request" step 2 to the copied files.
+2. Get the files (above), but only the ones that do not exist yet. Never
+   overwrite an existing file. Then apply the reset in "Setup pull request"
+   step 2 to the copied files.
 3. Merge these files instead of replacing them:
    - `.gitignore` and `.gitattributes`: add the missing lines at the end.
    - `README.md`: keep the existing text. Add the Files list and the sections
@@ -67,6 +88,7 @@ existing code in the same pull request.
    pull request.
 6. Do not add workflows that collide with existing CI. List the collisions in
    the pull request and let the owner choose.
-7. The owner reviews and merges. From then on all rules in `AGENTS.md` apply.
+7. Add the status file and one change file. The owner reviews and merges.
+   From then on all rules in `AGENTS.md` apply.
 
 The owner is defined at the top of `AGENTS.md`.

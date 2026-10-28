@@ -1,7 +1,7 @@
 ---
 task: Use the starter by link instead of copying or forking it
 who: Claude Code
-state: In progress
+state: Review
 branch: feat/use-by-link
 files: README.md (new, root), template/docs/ADOPT.md, template/docs/TLDR.txt, AGENTS.md, CLAUDE.md
 plan: |
