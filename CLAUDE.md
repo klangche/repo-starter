@@ -1,245 +1,172 @@
 # AGENTS.md
 
-Rules for every AI agent and LLM working in this repository. Humans should
-follow them too. CLAUDE.md is an exact copy of this file. Only the owner edits
-either one. CI fails if they differ.
+Rules for every AI agent in this repository. Humans follow them too.
+`CLAUDE.md` is an identical copy. Keep both identical.
 
-The owner is the person who owns the repository or the fork. An AI agent is
-never the owner.
+- Source: https://github.com/klangche/repo-starter
+- Based on: https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md
+  (sections 1-4). The rest extends it.
+- Owner: the person who owns the repository or fork. Never an AI.
+- Only the owner changes this file. Exceptions: the setup and
+  `update repo-starter` commands below, in a pull request the owner merges.
+- Caution over speed. For trivial tasks, use judgment.
 
-Paths in this file are the paths in a project. In `klangche/repo-starter`
-itself, every path except `AGENTS.md`, `CLAUDE.md`, `README.md` and `.github/`
-is under `template/`. Projects get these files through `docs/ADOPT.md`.
+## Commands
 
-## Owner settings
+**Setup** (the owner pastes the prompt from the repo-starter README):
 
-Branch protection: none
+1. Download https://raw.githubusercontent.com/klangche/repo-starter/main/AGENTS.md
+   and save it as `AGENTS.md` and `CLAUDE.md`. If the project already has
+   either file, add its rules under "Project" in the new file, commit that,
+   and quote the old text in the pull request description.
+2. Ask the owner what is unclear. Propose the stack. In "Project" below,
+   replace the repo-starter values with the project's own. Keep any rules
+   added in step 1.
+3. New repository: write `README.md` about the project (section 10).
+   Existing repository: leave its README and code as they are.
+4. One pull request, branch `docs/setup`. Nothing else starts until the owner
+   merges it. Empty repository with no commits: ask the owner to make the
+   first commit, so there is a main branch to open the pull request against.
 
-- `enforced`: public repo, or private repo on a paid plan with the ruleset
-  from `docs/BUILD.md` set up.
-- `none`: private repo on the free plan. GitHub cannot enforce the rules, so
-  you are the guard.
+**`update repo-starter`**:
 
-## 0. Language (critical)
+1. Download the latest repo-starter `AGENTS.md` (link above) and the latest
+   Karpathy `CLAUDE.md`
+   (https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md).
+2. Replace everything above "Project" in `AGENTS.md` and `CLAUDE.md` with the
+   new repo-starter text. Drop the downloaded "Project" section and keep the
+   project's own.
+3. If the Karpathy file says something sections 1-4 do not, list it in the
+   pull request. Do not add it yourself.
+4. One pull request, branch `docs/update-repo-starter`, listing what changed.
 
-Everything is in English. Always. No exceptions.
+## 0. Language
 
-- This applies no matter which language the user writes in to the AI, agent or
-  any other tool.
-- It covers code, comments, commit messages, pull requests, documentation,
-  file names, logs, error messages and the agent's own replies about the
-  repository.
-- If the user wants another language for the end users of the product, do not
-  translate inline. Add it to `docs/languages.csv`:
-  - One row per text, with a stable key (for example `btn.install`).
-  - The `en` column is the source and is always filled in first.
-  - Each extra language is one more column. Add the column only when it is
-    requested.
-  - A missing translation falls back to English.
-  - Never use the English sentence itself as the key.
-  - Keep the file UTF-8.
+- Everything in English: code, comments, commits, pull requests, docs, file
+  names, logs, and your replies about the repository. Whatever language the
+  user writes in.
+- Texts for end users in other languages: one strings file, stable keys,
+  English first, a missing translation falls back to English. Never use the
+  English sentence as the key.
 
 ## 1. Think before coding
 
-- State your assumptions before you implement.
-- If a request can be read in more than one way, list the readings and ask. Do
-  not pick one silently.
-- If something is unclear, stop and name what is unclear.
-- If a simpler approach exists, say so. Push back when the request looks
-  wrong.
-- Once the owner has set the language and the stack, build. Do not ask again
-  about choices the owner already made.
+- State assumptions. If unsure, ask.
+- Several readings: list them and ask. Do not pick one silently.
+- Unclear: stop, name what is unclear, ask.
+- A simpler way exists: say so. Push back when the request looks wrong.
+- Once the owner has decided (language, stack, design), build. Do not ask
+  again.
 
 ## 2. Simplicity first
 
-- Write the minimum code that solves the problem.
-- No features, abstractions or settings that were not asked for.
-- No error handling for situations that cannot happen.
-- If 200 lines could be 50, rewrite it.
+- Minimum code that solves the problem. No features, abstractions or settings
+  nobody asked for. No abstractions for single-use code.
+- No error handling for cases that cannot happen.
+- 200 lines that could be 50: rewrite.
 
 ## 3. Surgical changes
 
-- Touch only what the request needs.
-- Do not reformat, rename or "improve" unrelated code.
-- Match the existing style, even if you would do it differently.
-- Remove only the leftovers your own change created. If you notice other dead
-  code, mention it and leave it.
+- Touch only what the task needs. Do not reformat or "improve" other code.
+  Do not refactor what is not broken.
+- Match the existing style.
+- Remove only what your change made unused. Mention other dead code, leave it.
+- Every changed line traces to the request.
 
 ## 4. Goal-driven execution
 
-- Turn the task into a check that can be verified (a test, a command, an
-  expected output).
-- State a short plan with a check for each step, then work until the checks
-  pass.
-- Do not claim something works unless you ran it. If you could not run it, say
-  so.
+- Turn the task into checks (a test, a command, an expected output).
+- Short plan, one check per step. Work until the checks pass.
+- Never claim it works without running it. If you could not run it, say so.
 
-These rules favor caution over speed. For trivial tasks, use judgment.
+## 5. Context budget
 
-## 5. Context budget (critical)
+- Estimate the context the task needs before you start. Above 60%: split it
+  or hand it over. Do not start what you cannot finish cleanly.
 
-- Before you start, estimate how much of your context window this task will
-  use.
-- If you expect to pass 60%, stop before you start.
-- Split the task into smaller tasks, one per agent, or hand it over.
-- An agent that is past 60% starts to drift and takes shortcuts. A handover is
-  not a failure. It is the correct action.
-- Do not begin work you cannot finish cleanly.
+## 6. Workflow
 
-## 6. Debugging
+- Tasks are GitHub issues. A request without an issue: create one first. One
+  task = one branch = one pull request. Small and often.
+- Branch names: `feat/`, `fix/`, `docs/`, `debug/` plus a short slug.
+- Roles: Planner (writes the plan), Builder (implements), Reviewer (a different
+  agent instance than the Builder). A rejected review is normal: redo it.
+- Pull request description: the plan with a check per step, what you verified,
+  what you could not verify, and the Reviewer's verdict.
+- Pull request title in the style `Added: ...`, `Changed: ...`, `Fixed: ...`,
+  `Removed: ...` or `Security: ...`. Add `!` (for example `Changed!: ...`) for
+  a breaking change. The release notes are built from these titles.
+- Rebase on main before review. Keep the pull request free of conflicts.
+- Debugging: first write the diagnosis and the proposed fix in the issue. A
+  separate Builder implements it.
+- Never merge. Never approve your own pull request. Never push to main. Never
+  change repository settings, rulesets, labels or secrets. If you pushed to
+  main by mistake, stop and tell the owner. No force push.
 
-- A debugging agent must not change business code directly.
-- Write a diagnosis and a proposed change in `status/<slug>.md`.
-- A separate Builder agent implements the change.
-- This prevents a debugging agent from "fixing" one problem and creating
-  another.
+## 7. Code
 
-## 7. Roles
-
-`docs/PLANNER.md` defines the roles Planner, Builder and Reviewer, and the flow
-between them. Read it before you start a task.
-
-`docs/SPEC.md` says what the project builds and holds the backlog. Read it
-before you start a task. While its "Goal" says `Not filled in yet`, the only
-allowed task is the setup pull request, or for an existing project the adoption
-pull request, in `docs/ADOPT.md`. This does not apply
-in `klangche/repo-starter` itself, where the starter is the product.
-
-- The Reviewer must be a different agent instance than the Builder.
-- A rejected review is normal. The Builder redoes the task. No hard feelings.
-
-## 8. Files
-
-`docs/TLDR.txt` is for humans. In `klangche/repo-starter` agents may read and
-update it, and keep it in step with the files. In every other repository, do
-not open, read, search or edit it. If someone asks about it, say it is for
-humans and skip it.
-
-Who may change what:
-
-- Owner only: `AGENTS.md`, `CLAUDE.md`, and `docs/TLDR.txt` outside the
-  starter. Never edit them. Installing them through `docs/ADOPT.md`, and
-  writing the `Branch protection:` value the owner gives, is not an edit.
-- Generated by the release step: `docs/VERSIONS.md` and the features table in
-  `README.md`. Never edit them in a normal task.
-- `README.md` (everything outside the features table), `docs/BUILD.md`,
-  `docs/PLANNER.md`: change them only in a separate small pull request that
-  touches nothing else. A change to `docs/PLANNER.md` must explain why the
-  plan needs to change.
-- `docs/SPEC.md`: change it only in a separate small pull request that
-  touches nothing else, and explain why. A task pull request may add or tick
-  its own line in the backlog.
-- The setup pull request, or the adoption pull request, in `docs/ADOPT.md`
-  is the one exception to the rules
-  above for `README.md`, `docs/BUILD.md`, `docs/SPEC.md`, `docs/PLANNER.md`,
-  `docs/VERSIONS.md`, `docs/languages.csv`, `changes/` and `status/`. It
-  changes them together, once.
-- `docs/CODING.md`: change it only in a separate small pull request that
-  touches nothing else, and explain why the standard needs to change.
-- `docs/STATUS.md`: explains the `status/` folder. Do not edit it.
-- `docs/languages.csv`: add new rows at the end. Never reorder or reformat the
-  file.
-- `.github/`: do not change it unless the task is about it.
-
-## 9. Working in parallel
-
-Many agents work at the same time on many branches. These rules keep them from
-colliding.
-
-- One task is one branch is one pull request. Branch names: `feat/<slug>`,
-  `fix/<slug>`, `docs/<slug>`, `debug/<slug>`.
-- Before you start, read the files in `status/`. They list which files other
-  tasks are changing. If your files overlap, pick another task or ask the
-  owner.
-- Create `status/<slug>.md` from `status/_TEMPLATE.md`, set the state to
-  `In progress` and push it as your first commit.
-- Keep pull requests small. Small and often beats big and late.
-- Add exactly one file to `changes/` from `changes/_TEMPLATE.md`. You choose
-  `type` and `bump`. You never choose a version number.
-- Rebase on main before you open the pull request. If the pull request shows
-  conflicts or is behind main, rebase and push again.
-- Your last commit sets the state in your status file to `Done`.
-- Never merge. Never approve your own pull request. Never push to main.
-- Never change repository settings, rulesets, labels or secrets.
-
-The label `ready` means CI is green and there are no conflicts. It does not
-mean the change is correct. The owner reviews and merges.
-
-## 10. Branch protection mode
-
-Follow the block that matches `Branch protection:` at the top.
-
-If `enforced`:
-
-- GitHub blocks direct pushes to main and merges with failing checks.
-- Do not look for ways around it. No admin overrides, no disabling rules, no
-  editing rulesets.
-
-If `none`:
-
-- Nothing technical stops a push to main. Only this rule does.
-- Never push to main, even if you have the rights and even if the change is
-  tiny.
-- If you pushed to main by mistake, stop and tell the owner right away. Do not
-  try to fix it with a force push.
-
-## 11. Versioning
-
-- Semantic Versioning (MAJOR.MINOR.PATCH), Keep a Changelog layout.
-- The release step reads `changes/`, picks the version (the biggest `bump`
-  wins) and writes `docs/VERSIONS.md` and the features table in `README.md`.
-- If a change adds a user-visible feature, fill in the `feature:` line in your
-  change file. That is how the feature gets its "Since version" entry.
-
-## 12. Build and release
-
-- Every program is built by GitHub Actions. Do not rely on local builds for
-  releases.
-- The rules per program type and platform are in `docs/BUILD.md`. Follow them
-  exactly.
-- If a user must type a command in a terminal to install, it must be shown
-  very clearly in `docs/READ_ME_FIRST.txt` and inside the release zip.
-
-## 13. Secrets and safety
-
-- Never commit passwords, tokens, keys or certificates.
-- Use GitHub Actions secrets for anything sensitive.
-- Never run destructive commands (delete, force push, reset) without asking
-  first.
-
-## 14. Definition of done
-
-A task is done when:
-
-- The change works and you verified it, or you stated clearly what you could
-  not verify.
-- One valid file is in `changes/`.
-- Your status file says `Done`.
-- A Reviewer agent has approved it and the approval is noted in the status
-  file.
-- New user-facing texts are in `docs/languages.csv`.
-- CI is green on the pull request.
-
-## 15. Style
-
-- Short, direct, plain wording. No marketing language. No emojis.
-- If you are not sure about something, say so plainly instead of guessing.
-
-## 16. Code
-
-`docs/CODING.md` is the coding standard for every language. Read it before you
-write code.
-
-- Propose the right language for each part of the job, even if that means
-  several languages or several programs. The owner decides.
-- Follow the industry standard of each language: layout, formatter, linter,
-  tests.
-- One file per responsibility, named after what it does. Related small
+- Pick the right language per part, even if that means several languages or
+  programs. Propose with one line of why; the owner decides.
+- Follow each language's standard layout, formatter, linter and test tool
+  (for example Prettier/ESLint, Black or Ruff/pytest, rustfmt/Clippy,
+  clang-format/clang-tidy, dotnet format, swift-format, gofmt, PSScriptAnalyzer,
+  ShellCheck).
+- One file per responsibility, named after what it does. Small related
   functions may share a file named after the feature.
-- Web: HTML, CSS and JavaScript in separate files. No inline scripts, styles
-  or handlers.
-- On several operating systems, share one front end and keep system-specific
-  code in its own folder.
+- Web: HTML, CSS and JavaScript in separate files. No inline scripts, styles or
+  handlers. ES modules.
+- Several operating systems: one shared front end, system-specific code in its
+  own folder, one documented interface between the parts.
+- Existing projects: their conventions win. Do not rewrite working code to
+  match these rules.
+- Secrets and configuration stay out of the code. Commit lock files. Prefer
+  the standard library.
 
-To start a new project or add this starter to an existing one, follow
-`docs/ADOPT.md`.
+## 8. Build and release
+
+- Everything is built by GitHub Actions. No local builds for releases.
+- Versions: Semantic Versioning, git tags `vX.Y.Z`. The owner tags. A breaking
+  change bumps MAJOR, a feature MINOR, a fix PATCH.
+- Release notes: from the pull request titles since the last tag.
+- Assets: `<name>-<version>-<platform>.<ext>`. Builds are unsigned, so when the
+  user must run a terminal command or unblock a file, put a short
+  `READ_ME_FIRST.txt` with the exact command in the zip.
+- Windows: .msi, silent update if already installed. macOS: one universal
+  build. Linux: only on request.
+
+## 9. Secrets and safety
+
+- Never commit passwords, tokens, keys or certificates. Use GitHub Actions
+  secrets.
+- Ask before destructive commands (delete, force push, reset).
+
+## 10. README
+
+- About the project only: what it is, features, install, usage, platforms,
+  development, license. Nothing copied from repo-starter.
+- The only reference to these rules: "Contributors and AI agents follow
+  AGENTS.md."
+
+## 11. Done
+
+- Works and verified, or clearly says what was not verified.
+- Reviewer approved, noted in the pull request.
+- CI green, if the project has CI.
+
+## 12. Style
+
+- Short, direct, plain. No marketing language. No emojis.
+- Not sure: say so instead of guessing.
+
+## Project
+
+Filled in by the setup pull request. Changed only by the owner.
+
+- Branch protection: none (`enforced` if GitHub enforces a ruleset on main,
+  else `none`: then these rules are the only guard)
+- Goal: repo-starter itself. Two files of rules for AI agents, used by link.
+- Users and platforms: anyone using an AI coding agent, any platform.
+- Stack: Markdown.
+- Decisions:
+  - 2026-10-28: everything in AGENTS.md and CLAUDE.md. No other files except
+    a short README with the prompt to paste.
