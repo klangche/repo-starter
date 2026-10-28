@@ -1,7 +1,7 @@
 ---
 task: Add release-zip.yml for PowerShell and HTML releases
 who: Claude Code
-state: In progress
+state: Review
 branch: feat/release-zip
 files: .github/workflows/release-zip.yml
 plan: |
