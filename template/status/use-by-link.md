@@ -1,0 +1,16 @@
+---
+task: Use the starter by link instead of copying or forking it
+who: Claude Code
+state: In progress
+branch: feat/use-by-link
+files: README.md (new, root), template/docs/ADOPT.md, template/docs/TLDR.txt, AGENTS.md, CLAUDE.md
+plan: |
+  - root README.md with the prompt to paste, owner steps, by-hand file list, check: every path in it exists in the repo
+  - ADOPT.md fetches the files from the starter instead of moving template/, check: following it on a scratch empty repo gives the same tree as before; check and prepare-release pass there
+  - AGENTS.md preamble and TLDR.txt no longer talk about copies of the starter, check: no "Use this template" or "git mv template" left; diff AGENTS.md CLAUDE.md empty
+reviewer:
+review:
+updated: 2026-10-28
+---
+Owner wants the starter used by link (prompt an agent with the URL) and starred,
+not copied or forked. The repo is public, so agents can read it.
