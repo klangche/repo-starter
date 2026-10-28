@@ -94,9 +94,10 @@ jobs:
           open(at("docs/VERSIONS.md"), "w", encoding="utf-8").write(versions)
 
           # New rows at the end of the features table in README.md.
+          # A project README without a Features section is left alone.
           features = [f["feature"] for _, f, _ in changes if f.get("feature")]
-          if features:
-              readme = open(at("README.md"), encoding="utf-8").read().split("\n")
+          readme = open(at("README.md"), encoding="utf-8").read().split("\n")
+          if features and "## Features" in readme:
               start = readme.index("## Features")
               end = start + 1
               while end < len(readme) and not readme[end].startswith("## "):

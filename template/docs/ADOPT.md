@@ -64,8 +64,11 @@ until the owner has merged it.
 3. Fill in `docs/SPEC.md`. The agent proposes the languages and stack, lists
    what is unclear, and asks the owner. It does not guess.
 4. Fill in `project-type` and `languages` in `docs/BUILD.md` from the spec.
-5. Fill in "What it is" in `README.md`. "Install" may say "Not available
-   yet" until there is something to install.
+5. Write `README.md` for the project: fill in every section, delete the
+   sections that do not apply, keep "Features" and the `AGENTS.md` line in
+   "Development". It is about the project only. Do not copy text from the
+   starter's README or docs into it. "Install" may say "Not available yet"
+   until there is something to install.
 6. Add one change file, as for any task.
 7. The owner reviews the spec and merges. Merging is the approval.
 
@@ -85,8 +88,11 @@ One pull request, branch `docs/adopt`. It does not change the existing code.
    step 2 to the copied files.
 3. Merge these files instead of replacing them:
    - `.gitignore` and `.gitattributes`: add the missing lines at the end.
-   - `README.md`: keep the existing text. Add the Files list and the sections
-     that are missing.
+   - `README.md`: keep the existing text as it is. Only add a `## Features`
+     table with the header row from `template/README.md` (the release step
+     writes to it), and, if there is no development or contributing section,
+     the line "Contributors and AI agents follow [AGENTS.md](AGENTS.md)."
+     Add nothing else.
    - An existing `AGENTS.md` or `CLAUDE.md`: do not change it. Write the
      proposed merged text in the pull request description. The owner decides.
 4. Fill in `project-type` and `languages` in `docs/BUILD.md`, and

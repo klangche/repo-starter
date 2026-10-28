@@ -11,7 +11,7 @@ FILES
 
 AGENTS.md          Rules for AI. Only the owner edits it.
 CLAUDE.md          Same as AGENTS.md. Some AI tools look for this name.
-README.md          Start here. Links to all files. Says what the project is.
+README.md          About the project: what it is, install, usage, features.
 docs/SPEC.md       What the project builds: goal, stack, plan, task list.
 docs/CODING.md     How code is written, in any language.
 docs/ADOPT.md      How to start a project, or add the starter to an old one.

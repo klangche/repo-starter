@@ -1,7 +1,7 @@
 ---
 task: Project README without starter text
 who: Claude Code
-state: In progress
+state: Review
 branch: fix/project-readme
 files: template/README.md, template/docs/ADOPT.md, template/docs/TLDR.txt, .github/workflows/prepare-release.yml, README.md (root)
 plan: |
