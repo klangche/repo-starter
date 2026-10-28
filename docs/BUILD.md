@@ -15,7 +15,8 @@ Allowed values for `project-type`: `none`, `powershell`, `html`, `web`,
 `cli`, `library`, `app-windows`, `app-macos`, `app-both`. Several values are
 allowed, separated by commas, when the repository holds several programs.
 
-`languages` lists every language used, for example `rust, html, css, js`. The
+`languages` lists every language used, for example `Rust, HTML, CSS,
+JavaScript`. The
 agent proposes it (`docs/CODING.md` section 1). The owner decides.
 
 - `none`: documentation or configuration only. No build.

@@ -94,7 +94,7 @@ default settings unless the project already has its own. CI should run them.
 | C# | .NET conventions | dotnet format | .NET analyzers | xUnit |
 | Swift | Swift API Design Guidelines | swift-format | SwiftLint | XCTest |
 | Go | Effective Go | gofmt | go vet | go test |
-| PowerShell | PowerShell Practice and Style | | PSScriptAnalyzer | Pester |
+| PowerShell | PowerShell Best Practices and Style Guide | | PSScriptAnalyzer | Pester |
 | Bash | Google Shell Style Guide | shfmt | ShellCheck | bats |
 
 For a language not in this table, use the tools its community treats as

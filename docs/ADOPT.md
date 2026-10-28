@@ -39,7 +39,4 @@ existing code in the same pull request.
    the pull request and let the owner choose.
 7. The owner reviews and merges. From then on all rules in `AGENTS.md` apply.
 
-## Who is the owner
-
-The owner is the person who owns the repository or the fork. An AI agent is
-never the owner.
+The owner is defined at the top of `AGENTS.md`.
