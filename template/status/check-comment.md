@@ -1,7 +1,7 @@
 ---
 task: Fix the stale template/ comment in check.yml
 who: Claude Code
-state: In progress
+state: Review
 branch: fix/check-comment
 files: .github/workflows/check.yml
 plan: |

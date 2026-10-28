@@ -34,8 +34,8 @@ jobs:
 
           errors = []
 
-          # In the starter, and in a copy before its setup pull request, the
-          # project files are in template/. After setup they are at the root.
+          # In the starter the project files are in template/. In a project
+          # they are at the root.
           root = "template" if os.path.isdir("template/docs") else "."
 
           def at(path):
