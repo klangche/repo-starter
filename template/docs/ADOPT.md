@@ -91,9 +91,9 @@ One pull request, branch `docs/adopt`. It does not change the existing code.
    - `README.md`: keep the existing text as it is. Only add the features
      table header from `template/README.md` (the release step writes to it):
      inside the existing `## Features` section if there is one, else in a new
-     `## Features` section. And, if there is no development or contributing section,
-     the line "Contributors and AI agents follow [AGENTS.md](AGENTS.md)."
-     Add nothing else.
+     `## Features` section. If there is no development or contributing
+     section, also add the line "Contributors and AI agents follow
+     [AGENTS.md](AGENTS.md)." Add nothing else.
    - An existing `AGENTS.md` or `CLAUDE.md`: do not change it. Write the
      proposed merged text in the pull request description. The owner decides.
 4. Fill in `project-type` and `languages` in `docs/BUILD.md`, and
