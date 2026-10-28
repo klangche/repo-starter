@@ -6,7 +6,7 @@ exists. Written so an AI agent can follow it step by step.
 ## New project (blank start)
 
 1. Create the repository from this one (GitHub "Use this template", or copy
-   the files).
+   the files). It holds `AGENTS.md`, `CLAUDE.md`, `.github/` and `template/`.
 2. The owner sets `Branch protection:` in `AGENTS.md` and `CLAUDE.md`, and
    does the one-time settings in `docs/BUILD.md`, "Repository setup".
 3. The owner prompts the agent with what to build.
@@ -21,7 +21,9 @@ One pull request, branch `docs/setup`. The Planner writes it, a Reviewer
 reviews it (`docs/PLANNER.md`), the owner merges it. It is the only pull
 request that may change all of these files together.
 
-1. Reset what the copy inherited from the starter:
+1. Move the contents of `template/` to the root and delete the empty folder:
+   `git mv template/* template/.gitignore template/.gitattributes . && rmdir template`
+2. Reset what the copy inherited from the starter:
    - `changes/` and `status/`: delete every file except `README.md` and
      `_TEMPLATE.md`.
    - `docs/VERSIONS.md`: delete everything below the marker line
@@ -32,13 +34,13 @@ request that may change all of these files together.
    - `docs/languages.csv`: keep only the header `key,en`.
    - `docs/PLANNER.md`: delete the entries in the decision log.
    - `docs/TLDR.txt` is owner only. The agent tells the owner to update it.
-2. Fill in `docs/SPEC.md`. The agent proposes the languages and stack, lists
+3. Fill in `docs/SPEC.md`. The agent proposes the languages and stack, lists
    what is unclear, and asks the owner. It does not guess.
-3. Fill in `project-type` and `languages` in `docs/BUILD.md` from the spec.
-4. Fill in "What it is" in `README.md`. "Install" may say "Not available
+4. Fill in `project-type` and `languages` in `docs/BUILD.md` from the spec.
+5. Fill in "What it is" in `README.md`. "Install" may say "Not available
    yet" until there is something to install.
-5. Add the status file and one change file, as for any task.
-6. The owner reviews the spec and merges. Merging is the approval.
+6. Add the status file and one change file, as for any task.
+7. The owner reviews the spec and merges. Merging is the approval.
 
 ## Existing project
 
@@ -47,9 +49,10 @@ existing code in the same pull request.
 
 1. Read the existing repository first: languages, folder layout, build,
    formatter and linter settings, CI, `.gitignore`.
-2. Copy the starter files that do not exist yet. Never overwrite an existing
-   file. Then apply the reset in "Setup pull request" step 1 to the copied
-   files.
+2. Copy the starter files that do not exist yet: `AGENTS.md`, `CLAUDE.md`,
+   `.github/workflows/`, and the contents of `template/` placed at the root
+   (not the `template/` folder itself). Never overwrite an existing file. Then
+   apply the reset in "Setup pull request" step 2 to the copied files.
 3. Merge these files instead of replacing them:
    - `.gitignore` and `.gitattributes`: add the missing lines at the end.
    - `README.md`: keep the existing text. Add the Files list and the sections

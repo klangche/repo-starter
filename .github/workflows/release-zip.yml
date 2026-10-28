@@ -45,9 +45,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build zip
         run: |
-          types=$(sed -n 's/^- `project-type`:[[:space:]]*//p' docs/BUILD.md)
+          # In the starter the project files are in template/.
+          docs=docs
+          [ -d template/docs ] && docs=template/docs
+          types=$(sed -n 's/^- `project-type`:[[:space:]]*//p' "$docs/BUILD.md")
           if ! echo "$types" | tr ',' '\n' | tr -d ' \t' | grep -qx 'powershell\|html'; then
-            echo "::notice::project-type in docs/BUILD.md is '$types', not powershell or html. Nothing to zip."
+            echo "::notice::project-type in $docs/BUILD.md is '$types', not powershell or html. Nothing to zip."
             exit 0
           fi
           if [ ! -d src ] || [ -z "$(ls -A src)" ]; then
@@ -57,7 +60,7 @@ jobs:
           zip_name="$NAME-${TAG#v}-$PLATFORM.zip"
           mkdir -p dist/stage
           cp -R src/. dist/stage/
-          cp docs/READ_ME_FIRST.txt dist/stage/
+          cp "$docs/READ_ME_FIRST.txt" dist/stage/
           (cd dist/stage && zip -qr "../$zip_name" .)
           echo "ZIP=dist/$zip_name" >> "$GITHUB_ENV"
       - name: Publish release

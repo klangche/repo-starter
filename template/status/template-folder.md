@@ -1,7 +1,7 @@
 ---
 task: Move everything except AGENTS.md, CLAUDE.md and .github/ into template/
 who: Claude Code
-state: In progress
+state: Review
 branch: feat/template-folder
 files: everything; README.md docs/ changes/ status/ .gitignore .gitattributes move to template/; .github/workflows/check.yml, prepare-release.yml, release-zip.yml; AGENTS.md, CLAUDE.md; template/docs/ADOPT.md, template/docs/TLDR.txt, template/README.md
 plan: |
