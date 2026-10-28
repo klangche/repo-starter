@@ -9,6 +9,7 @@ Rules for every AI agent in this repository. Humans follow them too.
 - Owner: the person who owns the repository or fork. Never an AI.
 - Only the owner changes this file. Exceptions: the setup and
   `update repo-starter` commands below, in a pull request the owner merges.
+- Caution over speed. For trivial tasks, use judgment.
 
 ## Commands
 
@@ -18,8 +19,9 @@ Rules for every AI agent in this repository. Humans follow them too.
    and save it as `AGENTS.md` and `CLAUDE.md`. If the project already has
    either file, add its rules under "Project" in the new file, commit that,
    and quote the old text in the pull request description.
-2. Ask the owner what is unclear. Propose the stack. Replace the values in
-   "Project" below (they describe repo-starter) with the project's own.
+2. Ask the owner what is unclear. Propose the stack. In "Project" below,
+   replace the repo-starter values with the project's own. Keep any rules
+   added in step 1.
 3. New repository: write `README.md` about the project (section 10).
    Existing repository: leave its README and code as they are.
 4. One pull request, branch `docs/setup`. Nothing else starts until the owner
@@ -46,8 +48,6 @@ Rules for every AI agent in this repository. Humans follow them too.
 - Texts for end users in other languages: one strings file, stable keys,
   English first, a missing translation falls back to English. Never use the
   English sentence as the key.
-
-Caution over speed. For trivial tasks, use judgment.
 
 ## 1. Think before coding
 
