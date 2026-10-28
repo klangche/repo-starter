@@ -9,14 +9,22 @@ repository. All builds run in GitHub Actions. The reusable workflows live in
 Fill this in before the first pull request. CI fails if it is empty.
 
 - `project-type`: none
+- `languages`: none
 
-Allowed values: `none`, `powershell`, `html`, `web`, `app-windows`,
-`app-macos`, `app-both`.
+Allowed values for `project-type`: `none`, `powershell`, `html`, `web`,
+`cli`, `library`, `app-windows`, `app-macos`, `app-both`. Several values are
+allowed, separated by commas, when the repository holds several programs.
+
+`languages` lists every language used, for example `rust, html, css, js`. The
+agent proposes it (`docs/CODING.md` section 1). The owner decides.
 
 - `none`: documentation or configuration only. No build.
 - `powershell`: Windows PowerShell script or module. Zipped release.
 - `html`: a single page or a folder. Zipped release or GitHub Pages.
 - `web`: a site that needs a server or a build step.
+- `cli`: a command-line tool in any language. One zip per platform.
+- `library`: code used by other projects. Published to the package registry
+  of its language, or as a zip.
 - `app-windows`: an .msi installer.
 - `app-macos`: one universal app build.
 - `app-both`: both of the above.
@@ -26,8 +34,11 @@ them, but do not build what is not selected.
 
 ## Rules
 
-- One repository per program. If a project needs several programs in one
-  repo, create a launcher that can download and update the other files.
+- One repository per product. A product may have several programs, for
+  example one per operating system or a separate front end and back end. Use
+  the layout in `docs/CODING.md` section 2.
+- If the programs are installed separately but must stay in step, create a
+  launcher that can download and update the other files.
 - Releases are triggered by a version tag (`vX.Y.Z`).
 - Every release asset is named `<name>-<version>-<platform>.<ext>`, for
   example `ToolName-1.2.0-Windows.zip`.
@@ -49,6 +60,12 @@ them, but do not build what is not selected.
 - If it should run online, publish it with GitHub Pages. Otherwise ship it as
   a zip like PowerShell.
 - Copy `.github/workflows/release-zip.yml` from the template.
+
+### Compiled languages (Rust, C, C++, Go, C#, Swift and others)
+
+- Build with the language's standard tool (`cargo`, `cmake`, `go build`,
+  `dotnet`, `xcodebuild`) in Actions, one job per platform.
+- Ship the result as a zip per platform, or as an app installer below.
 
 ### Apps
 
@@ -190,6 +207,6 @@ before you run many builds.
 Add every program and package here. Changes to this table go in their own
 small pull request.
 
-| Item | Type | Platforms | Workflow | Status |
-| --- | --- | --- | --- | --- |
-| Example | PowerShell | Windows | release-zip.yml | Planned |
+| Item | Type | Languages | Platforms | Workflow | Status |
+| --- | --- | --- | --- | --- | --- |
+| Example | powershell | PowerShell | Windows | release-zip.yml | Planned |

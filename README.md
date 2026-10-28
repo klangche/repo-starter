@@ -8,12 +8,21 @@
 - [docs/PLANNER.md](docs/PLANNER.md): roles, flow, how to change the plan
 - [docs/VERSIONS.md](docs/VERSIONS.md): version history
 - [docs/BUILD.md](docs/BUILD.md): what to build, how to release, repository setup
+- [docs/CODING.md](docs/CODING.md): coding standard for every language
+- [docs/ADOPT.md](docs/ADOPT.md): start a new project or add this starter to an existing one
 - [docs/STATUS.md](docs/STATUS.md): how work is tracked
 - [docs/TLDR.txt](docs/TLDR.txt): one-line summary of every file (humans only, AI skips it)
 - [docs/languages.csv](docs/languages.csv): translations of all user-facing texts
 - [docs/READ_ME_FIRST.txt](docs/READ_ME_FIRST.txt): template for the install note inside release zips
 - [changes/](changes/): one small file per change, collected at release
 - [status/](status/): one small file per task in progress
+
+## Start here
+
+- New project: follow `docs/ADOPT.md`, "New project". Then prompt the agent
+  with what to build.
+- Existing project: copy this starter in and ask the agent to follow
+  `docs/ADOPT.md`, "Existing project".
 
 ## What it is
 
