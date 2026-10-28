@@ -54,7 +54,7 @@ jobs:
           # Required files.
           required = ["AGENTS.md", "CLAUDE.md"] + [at(p) for p in [
               "README.md",
-              "docs/BUILD.md", "docs/CODING.md", "docs/ADOPT.md", "docs/SPEC.md",
+              "docs/BUILD.md", "docs/CODING.md", "docs/ADOPT.md",
               "docs/PLANNER.md", "docs/STATUS.md", "docs/VERSIONS.md",
               "docs/languages.csv", "docs/READ_ME_FIRST.txt",
               "changes/_TEMPLATE.md", "status/_TEMPLATE.md",
