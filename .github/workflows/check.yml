@@ -34,6 +34,13 @@ jobs:
 
           errors = []
 
+          # In the starter, and in a copy before its setup pull request, the
+          # project files are in template/. After setup they are at the root.
+          root = "template" if os.path.isdir("template/docs") else "."
+
+          def at(path):
+              return os.path.normpath(os.path.join(root, path))
+
           def fail(msg):
               errors.append(msg)
 
@@ -45,13 +52,13 @@ jobs:
               return dict(re.findall(r"^(\w+):[ \t]*(.*)$", m.group(1), re.M))
 
           # Required files.
-          required = [
-              "AGENTS.md", "CLAUDE.md", "README.md",
+          required = ["AGENTS.md", "CLAUDE.md"] + [at(p) for p in [
+              "README.md",
               "docs/BUILD.md", "docs/CODING.md", "docs/ADOPT.md",
               "docs/PLANNER.md", "docs/STATUS.md", "docs/VERSIONS.md",
               "docs/languages.csv", "docs/READ_ME_FIRST.txt",
               "changes/_TEMPLATE.md", "status/_TEMPLATE.md",
-          ]
+          ]]
           for path in required:
               if not os.path.isfile(path):
                   fail(f"missing required file: {path}")
@@ -62,24 +69,24 @@ jobs:
                   fail("AGENTS.md and CLAUDE.md differ")
 
           # Project type and languages in docs/BUILD.md.
-          if os.path.isfile("docs/BUILD.md"):
-              build = open("docs/BUILD.md", encoding="utf-8").read()
+          if os.path.isfile(at("docs/BUILD.md")):
+              build = open(at("docs/BUILD.md"), encoding="utf-8").read()
               allowed = {"none", "powershell", "html", "web", "cli", "library",
                          "app-windows", "app-macos", "app-both"}
               m = re.search(r"^- `project-type`:[ \t]*(.*)$", build, re.M)
               if not m or not m.group(1).strip():
-                  fail("docs/BUILD.md: project-type is empty")
+                  fail(f"{at('docs/BUILD.md')}: project-type is empty")
               else:
                   for value in m.group(1).split(","):
                       if value.strip() not in allowed:
-                          fail(f"docs/BUILD.md: unknown project-type '{value.strip()}'")
+                          fail(f"{at('docs/BUILD.md')}: unknown project-type '{value.strip()}'")
               m = re.search(r"^- `languages`:[ \t]*(.*)$", build, re.M)
               if not m or not m.group(1).strip():
-                  fail("docs/BUILD.md: languages is empty")
+                  fail(f"{at('docs/BUILD.md')}: languages is empty")
 
           # docs/languages.csv: UTF-8, key and en first, full rows, unique keys.
           try:
-              with open("docs/languages.csv", encoding="utf-8", newline="") as f:
+              with open(at("docs/languages.csv"), encoding="utf-8", newline="") as f:
                   rows = list(csv.reader(f))
           except (OSError, UnicodeDecodeError) as e:
               rows = []
@@ -104,7 +111,7 @@ jobs:
           types = {"Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"}
           bumps = {"patch", "minor", "major"}
           states = {"In progress", "Blocked", "Review", "Done"}
-          for path in sorted(glob.glob("changes/*.md")):
+          for path in sorted(glob.glob(at("changes/*.md"))):
               if os.path.basename(path) in skip:
                   continue
               fm = front_matter(path)
@@ -115,7 +122,7 @@ jobs:
                   fail(f"{path}: type must be one of {sorted(types)}")
               if fm.get("bump") not in bumps:
                   fail(f"{path}: bump must be one of {sorted(bumps)}")
-          for path in sorted(glob.glob("status/*.md")):
+          for path in sorted(glob.glob(at("status/*.md"))):
               if os.path.basename(path) in skip:
                   continue
               fm = front_matter(path)
@@ -131,11 +138,14 @@ jobs:
           if (os.environ.get("EVENT") == "pull_request"
                   and "skip-changes" not in labels
                   and not head_ref.startswith("release/")):
+              # Diff the whole tree so that moved files count as renames,
+              # not as added files.
               out = subprocess.run(
-                  ["git", "diff", "--name-only", "--diff-filter=A",
-                   os.environ["BASE_SHA"] + "...HEAD", "--", "changes/"],
+                  ["git", "diff", "--name-only", "-M", "--diff-filter=A",
+                   os.environ["BASE_SHA"] + "...HEAD"],
                   capture_output=True, text=True, check=True).stdout.split()
-              added = [p for p in out if os.path.basename(p) not in skip]
+              added = [p for p in out if os.path.dirname(p) == at("changes")
+                       and os.path.basename(p) not in skip]
               if len(added) != 1:
                   fail(f"pull request must add exactly one file in changes/, found {len(added)}")
 

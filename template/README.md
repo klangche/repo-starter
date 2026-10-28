@@ -18,14 +18,6 @@
 - [changes/](changes/): one small file per change, collected at release
 - [status/](status/): one small file per task in progress
 
-## Start here
-
-- New project: follow `docs/ADOPT.md`, "New project". Prompt the agent with
-  what to build. Its first pull request resets the copy and fills in
-  `docs/SPEC.md`. Review the spec and merge, then the building starts.
-- Existing project: copy this starter in and ask the agent to follow
-  `docs/ADOPT.md`, "Existing project".
-
 ## What it is
 
 One or two sentences about what this project does and who it is for.
