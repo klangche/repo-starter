@@ -94,15 +94,18 @@ jobs:
           open(at("docs/VERSIONS.md"), "w", encoding="utf-8").write(versions)
 
           # New rows at the end of the features table in README.md.
+          # A project README without a features table is left alone.
           features = [f["feature"] for _, f, _ in changes if f.get("feature")]
-          if features:
-              readme = open(at("README.md"), encoding="utf-8").read().split("\n")
+          readme = open(at("README.md"), encoding="utf-8").read().split("\n")
+          rows = []
+          if "## Features" in readme:
               start = readme.index("## Features")
               end = start + 1
               while end < len(readme) and not readme[end].startswith("## "):
                   end += 1
-              last = max(i for i in range(start, end) if readme[i].startswith("|"))
-              readme[last + 1:last + 1] = [f"| {name} | {version} | |" for name in features]
+              rows = [i for i in range(start, end) if readme[i].startswith("|")]
+          if features and rows:
+              readme[rows[-1] + 1:rows[-1] + 1] = [f"| {name} | {version} | |" for name in features]
               open(at("README.md"), "w", encoding="utf-8").write("\n".join(readme))
 
           # Delete the used change files and the status files that say Done.

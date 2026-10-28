@@ -77,8 +77,9 @@ Then:
 ## For AI agents
 
 You were sent here to set up a project. Follow `template/docs/ADOPT.md` in
-this repository. It says which files to copy and what to do with them. Do not
-copy this README. The project gets `template/README.md`.
+this repository. It says which files to copy and what to do with them. Never
+copy text from this README into the project. The project's README is about
+the project only (`template/README.md` is its outline).
 
 ## This repository
 
