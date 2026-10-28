@@ -1,0 +1,92 @@
+# Labels open pull requests `ready` (check passed, no conflicts) or
+# `needs attention`. Runs after the check workflow, and for all open pull
+# requests when main changes.
+# Reusable: a project repository calls it with
+#   on:
+#     workflow_run:
+#       workflows: [check]
+#       types: [completed]
+#     push:
+#       branches: [main]
+#   permissions:
+#     checks: read
+#     issues: write
+#     pull-requests: write
+#   jobs:
+#     pr-status:
+#       uses: klangche/repo-starter/.github/workflows/pr-status.yml@main
+name: pr-status
+on:
+  workflow_run:
+    workflows: [check]
+    types: [completed]
+  push:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  checks: read
+  # issues: write lets addLabels create the labels the first time.
+  issues: write
+  pull-requests: write
+
+jobs:
+  pr-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const READY = 'ready';
+            const ATTENTION = 'needs attention';
+
+            // GitHub computes mergeability in the background, so it can be
+            // null for a few seconds after a push.
+            async function getPull(number) {
+              for (let i = 0; i < 5; i++) {
+                const { data } = await github.rest.pulls.get({ owner, repo, pull_number: number });
+                if (data.mergeable !== null) return data;
+                await new Promise(r => setTimeout(r, 3000));
+              }
+              return null;
+            }
+
+            // The check job is named `check`, or `<caller job> / check` when
+            // called as a reusable workflow. listForRef returns only the
+            // latest run per name, so an old failed run does not count.
+            async function checkPassed(sha) {
+              const runs = await github.paginate(github.rest.checks.listForRef,
+                { owner, repo, ref: sha, per_page: 100 });
+              const ours = runs.filter(r => r.name === 'check' || r.name.endsWith(' / check'));
+              return ours.length > 0 && ours.every(r => r.conclusion === 'success');
+            }
+
+            async function setLabel(pull, label) {
+              const other = label === READY ? ATTENTION : READY;
+              if (pull.labels.some(l => l.name === other)) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number: pull.number, name: other });
+              }
+              if (!pull.labels.some(l => l.name === label)) {
+                await github.rest.issues.addLabels({ owner, repo, issue_number: pull.number, labels: [label] });
+              }
+            }
+
+            let numbers;
+            if (context.eventName === 'workflow_run') {
+              numbers = context.payload.workflow_run.pull_requests.map(p => p.number);
+            } else {
+              const open = await github.paginate(github.rest.pulls.list, { owner, repo, state: 'open' });
+              numbers = open.map(p => p.number);
+            }
+
+            for (const number of numbers) {
+              // Unknown mergeability counts as not ready, so a stale `ready`
+              // label does not survive a conflict.
+              const pull = await getPull(number)
+                ?? (await github.rest.pulls.get({ owner, repo, pull_number: number })).data;
+              if (pull.state !== 'open') continue;
+              const ok = pull.mergeable === true && await checkPassed(pull.head.sha);
+              await setLabel(pull, ok ? READY : ATTENTION);
+              core.info(`#${number}: ${ok ? READY : ATTENTION}`);
+            }

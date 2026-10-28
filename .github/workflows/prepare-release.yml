@@ -1,0 +1,124 @@
+# Collects the files in changes/, picks the next version, updates
+# docs/VERSIONS.md and the features table in README.md, deletes the used
+# change files and the status files that say Done, and opens the pull request
+# `Release vX.Y.Z`. See docs/BUILD.md, "Release flow".
+# Reusable: a project repository calls it with
+#   on:
+#     workflow_dispatch:
+#   permissions:
+#     contents: write
+#     pull-requests: write
+#   jobs:
+#     prepare-release:
+#       uses: klangche/repo-starter/.github/workflows/prepare-release.yml@main
+#       secrets: inherit
+name: Prepare release
+on:
+  workflow_dispatch:
+  workflow_call:
+    secrets:
+      RELEASE_TOKEN:
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    env:
+      # Pull requests opened with the built-in token do not start CI.
+      GH_TOKEN: ${{ secrets.RELEASE_TOKEN || github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.RELEASE_TOKEN || github.token }}
+      - name: Collect changes
+        id: collect
+        shell: python
+        run: |
+          import datetime, glob, os, re, sys
+
+          skip = {"README.md", "_TEMPLATE.md"}
+          order = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"]
+          rank = {"patch": 0, "minor": 1, "major": 2}
+
+          def read(path):
+              text = open(path, encoding="utf-8").read()
+              m = re.match(r"---\n(.*?)\n---\n(.*)", text, re.S)
+              if not m:
+                  sys.exit(f"{path}: missing front matter")
+              fields = dict(re.findall(r"^(\w+):[ \t]*(.*)$", m.group(1), re.M))
+              return fields, " ".join(m.group(2).split())
+
+          changes = []
+          for path in sorted(glob.glob("changes/*.md")):
+              if os.path.basename(path) not in skip:
+                  fields, text = read(path)
+                  changes.append((path, fields, text))
+          if not changes:
+              sys.exit("No files in changes/. Nothing to release.")
+
+          # Current version: the newest entry in docs/VERSIONS.md, else 0.0.0.
+          versions = open("docs/VERSIONS.md", encoding="utf-8").read()
+          marker = "<!-- NEWEST VERSION BELOW THIS LINE -->"
+          released = versions.split(marker, 1)[1]
+          m = re.search(r"^## \[(\d+)\.(\d+)\.(\d+)\]", released, re.M)
+          major, minor, patch = map(int, m.groups()) if m else (0, 0, 0)
+
+          bump = max((f["bump"] for _, f, _ in changes), key=rank.__getitem__)
+          if bump == "major":
+              major, minor, patch = major + 1, 0, 0
+          elif bump == "minor":
+              minor, patch = minor + 1, 0
+          else:
+              patch += 1
+          version = f"{major}.{minor}.{patch}"
+          today = datetime.date.today().isoformat()
+
+          # New entry in docs/VERSIONS.md, newest first.
+          entry = [f"## [{version}] - {today}"]
+          for section in order:
+              lines = [t for _, f, t in changes if f["type"] == section]
+              if lines:
+                  entry += ["", f"### {section}", ""] + [f"- {t}" for t in lines]
+          versions = versions.replace(marker, marker + "\n\n" + "\n".join(entry), 1)
+          open("docs/VERSIONS.md", "w", encoding="utf-8").write(versions)
+
+          # New rows at the end of the features table in README.md.
+          features = [f["feature"] for _, f, _ in changes if f.get("feature")]
+          if features:
+              readme = open("README.md", encoding="utf-8").read().split("\n")
+              start = readme.index("## Features")
+              end = start + 1
+              while end < len(readme) and not readme[end].startswith("## "):
+                  end += 1
+              last = max(i for i in range(start, end) if readme[i].startswith("|"))
+              readme[last + 1:last + 1] = [f"| {name} | {version} | |" for name in features]
+              open("README.md", "w", encoding="utf-8").write("\n".join(readme))
+
+          # Delete the used change files and the status files that say Done.
+          for path, _, _ in changes:
+              os.remove(path)
+          for path in glob.glob("status/*.md"):
+              if os.path.basename(path) not in skip:
+                  if re.search(r"^state:[ \t]*Done[ \t]*$", open(path, encoding="utf-8").read(), re.M):
+                      os.remove(path)
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write(f"version={version}\n")
+      - name: Open release pull request
+        env:
+          VERSION: ${{ steps.collect.outputs.version }}
+        run: |
+          branch="release/v$VERSION"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add -A
+          git commit -m "Release v$VERSION"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title "Release v$VERSION" \
+            --body "Collected from changes/. After merging, push the tag v$VERSION (docs/BUILD.md, \"Release flow\")."
