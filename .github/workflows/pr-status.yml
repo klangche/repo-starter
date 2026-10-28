@@ -10,6 +10,7 @@
 #       branches: [main]
 #   permissions:
 #     checks: read
+#     issues: write
 #     pull-requests: write
 #   jobs:
 #     pr-status:
@@ -25,6 +26,8 @@ on:
 
 permissions:
   checks: read
+  # issues: write lets addLabels create the labels the first time.
+  issues: write
   pull-requests: write
 
 jobs:
@@ -50,7 +53,8 @@ jobs:
             }
 
             // The check job is named `check`, or `<caller job> / check` when
-            // called as a reusable workflow.
+            // called as a reusable workflow. listForRef returns only the
+            // latest run per name, so an old failed run does not count.
             async function checkPassed(sha) {
               const runs = await github.paginate(github.rest.checks.listForRef,
                 { owner, repo, ref: sha, per_page: 100 });
@@ -77,9 +81,12 @@ jobs:
             }
 
             for (const number of numbers) {
-              const pull = await getPull(number);
-              if (!pull || pull.state !== 'open') continue;
-              const ok = pull.mergeable && await checkPassed(pull.head.sha);
+              // Unknown mergeability counts as not ready, so a stale `ready`
+              // label does not survive a conflict.
+              const pull = await getPull(number)
+                ?? (await github.rest.pulls.get({ owner, repo, pull_number: number })).data;
+              if (pull.state !== 'open') continue;
+              const ok = pull.mergeable === true && await checkPassed(pull.head.sha);
               await setLabel(pull, ok ? READY : ATTENTION);
               core.info(`#${number}: ${ok ? READY : ATTENTION}`);
             }
