@@ -4,6 +4,9 @@ Rules for every AI agent and LLM working in this repository. Humans should
 follow them too. CLAUDE.md is an exact copy of this file. Only the owner edits
 either one. CI fails if they differ.
 
+The owner is the person who owns the repository or the fork. An AI agent is
+never the owner.
+
 ## Owner settings
 
 Branch protection: none
@@ -40,6 +43,8 @@ Everything is in English. Always. No exceptions.
 - If something is unclear, stop and name what is unclear.
 - If a simpler approach exists, say so. Push back when the request looks
   wrong.
+- Once the owner has set the language and the stack, build. Do not ask again
+  about choices the owner already made.
 
 ## 2. Simplicity first
 
@@ -107,6 +112,8 @@ Who may change what:
   `docs/PLANNER.md`: change them only in a separate small pull request that
   touches nothing else. A change to `docs/PLANNER.md` must explain why the
   plan needs to change.
+- `docs/CODING.md`: change it only in a separate small pull request that
+  touches nothing else, and explain why the standard needs to change.
 - `docs/STATUS.md`: explains the `status/` folder. Do not edit it.
 - `docs/languages.csv`: add new rows at the end. Never reorder or reformat the
   file.
@@ -195,3 +202,22 @@ A task is done when:
 
 - Short, direct, plain wording. No marketing language. No emojis.
 - If you are not sure about something, say so plainly instead of guessing.
+
+## 16. Code
+
+`docs/CODING.md` is the coding standard for every language. Read it before you
+write code.
+
+- Propose the right language for each part of the job, even if that means
+  several languages or several programs. The owner decides.
+- Follow the industry standard of each language: layout, formatter, linter,
+  tests.
+- One file per responsibility, named after what it does. Related small
+  functions may share a file named after the feature.
+- Web: HTML, CSS and JavaScript in separate files. No inline scripts, styles
+  or handlers.
+- On several operating systems, share one front end and keep system-specific
+  code in its own folder.
+
+To start a new project or add this starter to an existing one, follow
+`docs/ADOPT.md`.
