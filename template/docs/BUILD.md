@@ -1,8 +1,8 @@
 # Build
 
 Everything that must be built, packaged and released, plus how to set up the
-repository. All builds run in GitHub Actions. The reusable workflows live in
-`klangche/repo-starter`. Project repositories call them with `uses:`.
+repository. All builds run in GitHub Actions. The workflows come into the
+project with the other files (`docs/ADOPT.md`). See "Workflows" below.
 
 ## Project type
 
@@ -52,15 +52,15 @@ them, but do not build what is not selected.
 
 - No compile step. Put the files to ship in `src/`.
 - The release workflow zips `src/` together with `docs/READ_ME_FIRST.txt`.
-- Copy `.github/workflows/release-zip.yml` from the template into this
-  repository.
+- `.github/workflows/release-zip.yml` builds and publishes the zip when a
+  version tag is pushed.
 
 ### HTML
 
 - A single file or a folder in `src/`.
 - If it should run online, publish it with GitHub Pages. Otherwise ship it as
   a zip like PowerShell.
-- Copy `.github/workflows/release-zip.yml` from the template.
+- `.github/workflows/release-zip.yml` builds the zip, as for PowerShell.
 
 ### Compiled languages (Rust, C, C++, Go, C#, Swift and others)
 
@@ -71,7 +71,7 @@ them, but do not build what is not selected.
 ### Apps
 
 Apps are built professionally with a real build in Actions. Add one workflow
-per platform, copied from the template.
+per platform.
 
 - Windows: an .msi installer.
   - If the app is already installed, the update runs silently
@@ -117,8 +117,8 @@ build.
 
 ## Workflows
 
-The four below are reusable and live in `klangche/repo-starter`. Project
-repositories have a thin wrapper in `.github/workflows/` that calls them.
+`docs/ADOPT.md` copies these five into the project's `.github/workflows/` as
+full files. Nothing else is needed.
 
 | File | What it does | When it runs |
 | --- | --- | --- |
@@ -126,8 +126,11 @@ repositories have a thin wrapper in `.github/workflows/` that calls them.
 | pr-status.yml | Sets the label `ready` or `needs attention` | After check, and for all open PRs when main changes |
 | main-guard.yml | Fails if a commit reached main without a pull request | Pushes to main |
 | prepare-release.yml | Collects changes and opens the release pull request | By hand |
+| release-zip.yml | Zips `src/` and publishes it, for `powershell` and `html` | Version tag `vX.Y.Z` |
 
-A wrapper in a project repository looks like this:
+Instead of the copies, a project can call them from `klangche/repo-starter`
+with a thin wrapper. It then always runs the latest version. A wrapper looks
+like this:
 
 ```yaml
 name: check
@@ -148,7 +151,7 @@ jobs:
 - A called workflow gets no more rights than the wrapper gives it, so every
   wrapper needs its own `permissions:` block.
 - Each workflow file starts with a comment that shows its wrapper and
-  triggers. Copy that for the other three, with these permissions:
+  triggers. Copy that for the others, with these permissions:
 
 | Wrapper | permissions | Also |
 | --- | --- | --- |
@@ -156,6 +159,7 @@ jobs:
 | pr-status | `checks: read`, `issues: write`, `pull-requests: write` | |
 | main-guard | `contents: read`, `pull-requests: read` | |
 | prepare-release | `contents: write`, `pull-requests: write` | `secrets: inherit`, to use `RELEASE_TOKEN` |
+| release-zip | `contents: write` | `with: name, platform` if the defaults do not fit |
 
 ## Repository setup (owner only)
 
