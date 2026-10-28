@@ -1,7 +1,7 @@
 ---
 task: Put the prompt to paste on the first line of the starter README
 who: Claude Code
-state: In progress
+state: Review
 branch: docs/readme-prompt-first
 files: README.md (root)
 plan: |
