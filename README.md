@@ -40,7 +40,8 @@ Details and branch protection: `template/docs/BUILD.md`, "Repository setup".
 
 ## By hand
 
-Copy these into the root of your project:
+Copy these into the root of your project. Never overwrite a file your
+project already has, except a `README.md` that GitHub created:
 
 | From this repository | To your project |
 | --- | --- |
@@ -48,8 +49,14 @@ Copy these into the root of your project:
 | `.github/workflows/*.yml` | `.github/workflows/` |
 | everything inside `template/`, including `.gitignore` and `.gitattributes` | the root (not a `template/` folder) |
 
-Then ask your agent to do the setup pull request in `docs/ADOPT.md`. It
-clears the history that came with the files and writes the spec.
+Then:
+
+1. Set `Branch protection:` at the top of `AGENTS.md` and `CLAUDE.md`
+   (`docs/BUILD.md`, "Repository setup").
+2. Ask your agent to follow `docs/ADOPT.md`: the setup pull request for a
+   project without code, the adoption pull request for one with code. It
+   clears the history that came with the files, merges files you already
+   had, and writes the spec.
 
 ## What you get
 

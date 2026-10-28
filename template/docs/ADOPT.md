@@ -6,18 +6,20 @@ https://github.com/klangche/repo-starter.
 
 - The repository has no code yet (at most the `README.md`, `LICENSE` or
   `.gitignore` that GitHub created): do the setup pull request.
-- The repository already has code: do the adoption pull request.
+- Otherwise, or if any file in the list below already exists other than
+  those three: do the adoption pull request.
 
 ## Get the files
 
-Clone the starter outside the project and copy from the clone:
+Clone the starter into a temporary folder outside the project and copy from
+the clone:
 
 ```
-git clone --depth 1 https://github.com/klangche/repo-starter.git /tmp/repo-starter
+git clone --depth 1 https://github.com/klangche/repo-starter.git <temp folder>/repo-starter
 ```
 
-If cloning is not possible, download the same paths from
-`https://raw.githubusercontent.com/klangche/repo-starter/main/<path>`.
+If cloning is not possible, download and unpack
+https://github.com/klangche/repo-starter/archive/refs/heads/main.zip instead.
 
 Copy into the project root:
 
@@ -40,8 +42,9 @@ reviews it (`docs/PLANNER.md`), the owner merges it. It is the only pull
 request that may change all of these files together. No other work starts
 until the owner has merged it.
 
-1. Get the files (above). Files GitHub created: `README.md` is replaced by the
-   template, `LICENSE` stays, `.gitignore` gets the missing lines added.
+1. Push the status file first (`AGENTS.md` section 9). Then get the files
+   (above). Files GitHub created: `README.md` is replaced by the template,
+   `LICENSE` stays, `.gitignore` gets the missing lines added.
 2. Reset what came with the files from the starter:
    - `changes/` and `status/`: delete every file except `README.md` and
      `_TEMPLATE.md`.
@@ -71,7 +74,8 @@ One pull request, branch `docs/adopt`. It does not change the existing code.
 
 1. Read the existing repository first: languages, folder layout, build,
    formatter and linter settings, CI, `.gitignore`.
-2. Get the files (above), but only the ones that do not exist yet. Never
+2. Push the status file first. Then get the files (above), but only the ones
+   that do not exist yet. Never
    overwrite an existing file. Then apply the reset in "Setup pull request"
    step 2 to the copied files.
 3. Merge these files instead of replacing them:

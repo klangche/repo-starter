@@ -5,20 +5,6 @@ Everything you need is in AGENTS.md.
 
 ----------------------------------------------------------------
 
-HOW TO USE THIS STARTER
-
-Do not fork or copy it. In your project, paste this to your AI agent:
-
-  Set up this repository with the standards from
-  https://github.com/klangche/repo-starter. Read its README and follow the
-  steps for AI agents.
-
-The agent copies the files in and opens one pull request with the plan
-(docs/SPEC.md). Read the plan, then merge. After that it builds one task per
-pull request. You merge. Works for new projects and projects with code.
-
-----------------------------------------------------------------
-
 TLDR: WHAT EACH FILE DOES (paths in a project, after setup)
 
 FILES
