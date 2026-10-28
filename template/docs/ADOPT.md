@@ -20,6 +20,8 @@ git clone --depth 1 https://github.com/klangche/repo-starter.git <temp folder>/r
 
 If cloning is not possible, download and unpack
 https://github.com/klangche/repo-starter/archive/refs/heads/main.zip instead.
+It unpacks to a folder `repo-starter-main/`, and the paths below are inside
+it.
 
 Copy into the project root:
 
@@ -42,12 +44,14 @@ reviews it (`docs/PLANNER.md`), the owner merges it. It is the only pull
 request that may change all of these files together. No other work starts
 until the owner has merged it.
 
-1. Push the status file first (`AGENTS.md` section 9). Then get the files
-   (above). Files GitHub created: `README.md` is replaced by the template,
-   `LICENSE` stays, `.gitignore` gets the missing lines added.
+1. Clone the starter (above). Create `status/<slug>.md` in the project from
+   the clone's `template/status/_TEMPLATE.md` and push it as the first commit
+   (`AGENTS.md` section 9). Then copy the files. Files GitHub created:
+   `README.md` is replaced by the template, `LICENSE` stays, `.gitignore`
+   gets the missing lines added.
 2. Reset what came with the files from the starter:
-   - `changes/` and `status/`: delete every file except `README.md` and
-     `_TEMPLATE.md`.
+   - `changes/` and `status/`: delete every file except `README.md`,
+     `_TEMPLATE.md` and this task's status file.
    - `docs/VERSIONS.md`: delete everything below the marker line
      `<!-- NEWEST VERSION BELOW THIS LINE -->`.
    - `README.md`: replace `PROJECT NAME`, and delete every row in the
@@ -62,7 +66,7 @@ until the owner has merged it.
 4. Fill in `project-type` and `languages` in `docs/BUILD.md` from the spec.
 5. Fill in "What it is" in `README.md`. "Install" may say "Not available
    yet" until there is something to install.
-6. Add the status file and one change file, as for any task.
+6. Add one change file, as for any task.
 7. The owner reviews the spec and merges. Merging is the approval.
 
 After that, agents take tasks from the backlog in `docs/SPEC.md`, one task per
@@ -74,8 +78,9 @@ One pull request, branch `docs/adopt`. It does not change the existing code.
 
 1. Read the existing repository first: languages, folder layout, build,
    formatter and linter settings, CI, `.gitignore`.
-2. Push the status file first. Then get the files (above), but only the ones
-   that do not exist yet. Never
+2. Clone the starter (above). Create `status/<slug>.md` from the clone's
+   `template/status/_TEMPLATE.md` and push it as the first commit. Then copy
+   the files, but only the ones that do not exist yet. Never
    overwrite an existing file. Then apply the reset in "Setup pull request"
    step 2 to the copied files.
 3. Merge these files instead of replacing them:
@@ -92,7 +97,7 @@ One pull request, branch `docs/adopt`. It does not change the existing code.
    pull request.
 6. Do not add workflows that collide with existing CI. List the collisions in
    the pull request and let the owner choose.
-7. Add the status file and one change file. The owner reviews and merges.
+7. Add one change file. The owner reviews and merges.
    From then on all rules in `AGENTS.md` apply.
 
 The owner is defined at the top of `AGENTS.md`.
