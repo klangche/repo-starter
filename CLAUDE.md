@@ -15,15 +15,16 @@ Rules for every AI agent in this repository. Humans follow them too.
 **Setup** (the owner pastes the prompt from the repo-starter README):
 
 1. Download https://raw.githubusercontent.com/klangche/repo-starter/main/AGENTS.md
-   and save it as `AGENTS.md` and `CLAUDE.md`. If either file already exists,
-   do not overwrite it: put the merged text in the pull request and let the
-   owner decide.
+   and save it as `AGENTS.md` and `CLAUDE.md`. If the project already has
+   either file, add its rules under "Project" in the new file, commit that,
+   and quote the old text in the pull request description.
 2. Ask the owner what is unclear. Propose the stack. Replace the values in
    "Project" below (they describe repo-starter) with the project's own.
 3. New repository: write `README.md` about the project (section 10).
    Existing repository: leave its README and code as they are.
 4. One pull request, branch `docs/setup`. Nothing else starts until the owner
-   merges it.
+   merges it. Empty repository with no commits: ask the owner to make the
+   first commit, so there is a main branch to open the pull request against.
 
 **`update repo-starter`**:
 
@@ -31,7 +32,8 @@ Rules for every AI agent in this repository. Humans follow them too.
    Karpathy `CLAUDE.md`
    (https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md).
 2. Replace everything above "Project" in `AGENTS.md` and `CLAUDE.md` with the
-   new repo-starter text. Keep "Project" as it is.
+   new repo-starter text. Drop the downloaded "Project" section and keep the
+   project's own.
 3. If the Karpathy file says something sections 1-4 do not, list it in the
    pull request. Do not add it yourself.
 4. One pull request, branch `docs/update-repo-starter`, listing what changed.
@@ -45,6 +47,8 @@ Rules for every AI agent in this repository. Humans follow them too.
   English first, a missing translation falls back to English. Never use the
   English sentence as the key.
 
+Caution over speed. For trivial tasks, use judgment.
+
 ## 1. Think before coding
 
 - State assumptions. If unsure, ask.
@@ -57,15 +61,17 @@ Rules for every AI agent in this repository. Humans follow them too.
 ## 2. Simplicity first
 
 - Minimum code that solves the problem. No features, abstractions or settings
-  nobody asked for.
+  nobody asked for. No abstractions for single-use code.
 - No error handling for cases that cannot happen.
 - 200 lines that could be 50: rewrite.
 
 ## 3. Surgical changes
 
 - Touch only what the task needs. Do not reformat or "improve" other code.
+  Do not refactor what is not broken.
 - Match the existing style.
 - Remove only what your change made unused. Mention other dead code, leave it.
+- Every changed line traces to the request.
 
 ## 4. Goal-driven execution
 
@@ -80,8 +86,8 @@ Rules for every AI agent in this repository. Humans follow them too.
 
 ## 6. Workflow
 
-- Tasks are GitHub issues. One task = one branch = one pull request. Small and
-  often.
+- Tasks are GitHub issues. A request without an issue: create one first. One
+  task = one branch = one pull request. Small and often.
 - Branch names: `feat/`, `fix/`, `docs/`, `debug/` plus a short slug.
 - Roles: Planner (writes the plan), Builder (implements), Reviewer (a different
   agent instance than the Builder). A rejected review is normal: redo it.
