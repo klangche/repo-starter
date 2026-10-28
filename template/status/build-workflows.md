@@ -1,7 +1,7 @@
 ---
 task: Make BUILD.md match how docs/ADOPT.md installs the workflows
 who: Claude Code
-state: In progress
+state: Review
 branch: docs/build-workflows
 files: template/docs/BUILD.md
 plan: |
