@@ -133,14 +133,29 @@ A wrapper in a project repository looks like this:
 name: check
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   push:
     branches: [main]
+permissions:
+  contents: read
 jobs:
   check:
     uses: klangche/repo-starter/.github/workflows/check.yml@main
 ```
 
-Copy the same pattern for the other three.
+- `labeled` and `unlabeled` re-run the check when `skip-changes` is added or
+  removed.
+- A called workflow gets no more rights than the wrapper gives it, so every
+  wrapper needs its own `permissions:` block.
+- Each workflow file starts with a comment that shows its wrapper and
+  triggers. Copy that for the other three, with these permissions:
+
+| Wrapper | permissions | Also |
+| --- | --- | --- |
+| check | `contents: read` | |
+| pr-status | `checks: read`, `issues: write`, `pull-requests: write` | |
+| main-guard | `contents: read`, `pull-requests: read` | |
+| prepare-release | `contents: write`, `pull-requests: write` | `secrets: inherit`, to use `RELEASE_TOKEN` |
 
 ## Repository setup (owner only)
 
@@ -172,7 +187,9 @@ slightly):
 
 - Target the default branch (main).
 - Require a pull request before merging.
-- Require status checks to pass, and add the check named `check`.
+- Require status checks to pass, and add the check named `check`. In a
+  project repository that calls the reusable workflow, the check is named
+  `check / check` (wrapper job / called job).
 - Require branches to be up to date before merging.
 - Block force pushes.
 - Restrict deletions.
