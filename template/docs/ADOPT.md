@@ -88,9 +88,10 @@ One pull request, branch `docs/adopt`. It does not change the existing code.
    step 2 to the copied files.
 3. Merge these files instead of replacing them:
    - `.gitignore` and `.gitattributes`: add the missing lines at the end.
-   - `README.md`: keep the existing text as it is. Only add a `## Features`
-     table with the header row from `template/README.md` (the release step
-     writes to it), and, if there is no development or contributing section,
+   - `README.md`: keep the existing text as it is. Only add the features
+     table header from `template/README.md` (the release step writes to it):
+     inside the existing `## Features` section if there is one, else in a new
+     `## Features` section. And, if there is no development or contributing section,
      the line "Contributors and AI agents follow [AGENTS.md](AGENTS.md)."
      Add nothing else.
    - An existing `AGENTS.md` or `CLAUDE.md`: do not change it. Write the
