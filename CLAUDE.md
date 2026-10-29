@@ -186,6 +186,9 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 ## 12. Style
 
 - Short, direct, plain. No marketing language. No emojis.
+- Chat replies: only what the reader needs, in as few words as possible. Do
+  not restate the request or repeat what is already in the issue or pull
+  request. Long replies waste context (section 5).
 - Not sure: say so instead of guessing.
 
 ## Project
