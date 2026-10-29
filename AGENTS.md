@@ -27,6 +27,7 @@ Rules for every AI agent in this repository. Humans follow them too.
 4. One pull request, branch `docs/setup`. Nothing else starts until the owner
    merges it. Empty repository with no commits: ask the owner to make the
    first commit, so there is a main branch to open the pull request against.
+5. After the merge, the Planner opens the first plan issue (section 6).
 
 **`update repo-starter`**:
 
@@ -86,19 +87,37 @@ Rules for every AI agent in this repository. Humans follow them too.
 
 ## 6. Workflow
 
-- Tasks are GitHub issues. A request without an issue: create one first. One
-  task = one branch = one pull request. Small and often.
-- Branch names: `feat/`, `fix/`, `docs/`, `debug/` plus a short slug.
-- Roles: Planner (writes the plan), Builder (implements), Reviewer (a different
-  agent instance than the Builder). A rejected review is normal: redo it.
-- Pull request description: the plan with a check per step, what you verified,
-  what you could not verify, and the Reviewer's verdict.
+Plan, then steps. Everything in GitHub, nothing in extra files.
+
+- Plan: every goal starts as a plan issue: the goal, then a checklist of
+  steps. Each step is a sub-issue with what to do and its check. A small
+  request may be one issue with a checklist. A request without an issue:
+  create it first.
+- One step = one issue = one branch = one pull request. The pull request says
+  `Closes #<issue>`, so merging it ticks the step in the plan.
+- Branches (GitHub flow): `main` always works and can be released. Branch from
+  the latest `main`: `feat/`, `fix/`, `docs/` or `debug/`, then the issue
+  number and a slug (`feat/12-login`). Short-lived. Squash merge, then the
+  branch is deleted.
+- Several agents: take only an open step that nobody is assigned to and no
+  pull request links to, and that nothing blocks (`Blocked by #<issue>` in its
+  body). Claim it first: assign yourself or comment on the issue, push the
+  branch and open a draft pull request. Draft means in progress; ready for
+  review means built and checked.
+- Roles: Planner (writes the plan issue), Builder (does one step), Reviewer (a
+  different agent instance than the Builder). A rejected review is normal:
+  redo it.
+- Pull request description: what changed, the checks you ran and their
+  result, what you could not verify, the Reviewer's verdict.
 - Pull request title in the style `Added: ...`, `Changed: ...`, `Fixed: ...`,
   `Removed: ...` or `Security: ...`. Add `!` (for example `Changed!: ...`) for
   a breaking change. The release notes are built from these titles.
-- Rebase on main before review. Keep the pull request free of conflicts.
+- Keep the branch up to date with `main` and free of conflicts. CI must be
+  green before review.
 - Debugging: first write the diagnosis and the proposed fix in the issue. A
   separate Builder implements it.
+- No access to issues: put the plan with its checklist in the pull request
+  description instead.
 - Never merge. Never approve your own pull request. Never push to main. Never
   change repository settings, rulesets, labels or secrets. If you pushed to
   main by mistake, stop and tell the owner. No force push.
@@ -125,6 +144,8 @@ Rules for every AI agent in this repository. Humans follow them too.
 ## 8. Build and release
 
 - Everything is built by GitHub Actions. No local builds for releases.
+- CI builds and tests every pull request. Releases build only from tags on
+  `main`.
 - Versions: Semantic Versioning, git tags `vX.Y.Z`. The owner tags. A breaking
   change bumps MAJOR, a feature MINOR, a fix PATCH.
 - Release notes: from the pull request titles since the last tag.
@@ -150,6 +171,8 @@ Rules for every AI agent in this repository. Humans follow them too.
 ## 11. Done
 
 - Works and verified, or clearly says what was not verified.
+- The step's issue is closed by the merged pull request, so the plan's
+  checklist shows it.
 - Reviewer approved, noted in the pull request.
 - CI green, if the project has CI.
 
