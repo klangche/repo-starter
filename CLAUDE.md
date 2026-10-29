@@ -56,6 +56,7 @@ Rules for every AI agent in this repository. Humans follow them too.
 - Several readings: list them and ask. Do not pick one silently.
 - Unclear: stop, name what is unclear, ask.
 - A simpler way exists: say so. Push back when the request looks wrong.
+- Name the tradeoffs between options.
 - Once the owner has decided (language, stack, design), build. Do not ask
   again.
 
@@ -65,6 +66,7 @@ Rules for every AI agent in this repository. Humans follow them too.
   nobody asked for. No abstractions for single-use code.
 - No error handling for cases that cannot happen.
 - 200 lines that could be 50: rewrite.
+- Would a senior engineer call it overcomplicated? Then simplify.
 
 ## 3. Surgical changes
 
@@ -77,6 +79,8 @@ Rules for every AI agent in this repository. Humans follow them too.
 ## 4. Goal-driven execution
 
 - Turn the task into checks (a test, a command, an expected output).
+- Bug: first write a test that reproduces it, then make it pass. Refactor:
+  tests pass before and after.
 - Short plan, one check per step. Work until the checks pass.
 - Never claim it works without running it. If you could not run it, say so.
 
