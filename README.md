@@ -11,6 +11,8 @@ Two files, `AGENTS.md` and `CLAUDE.md` (identical), with rules that make AI
 agents plan first, keep changes small, use one pull request per task with a
 separate reviewer, and follow each language's standards. Based on
 [Andrej Karpathy's guidelines](https://github.com/forrestchang/andrej-karpathy-skills/blob/main/CLAUDE.md).
+In Claude Code they use the [superpowers](https://github.com/obra/superpowers)
+skills for planning, TDD, debugging and review.
 
 By hand: copy `AGENTS.md` into your project as `AGENTS.md` and `CLAUDE.md`,
 then ask your agent to run the Setup command in it.
