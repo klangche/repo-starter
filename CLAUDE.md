@@ -132,6 +132,19 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
   separate Builder implements it.
 - No access to issues: put the plan with its checklist in the pull request
   description instead.
+- Superpowers skills per step. Agents without the plugin follow the same
+  steps without the skills.
+  - Planner: `brainstorming`, then `writing-plans`. The result goes into the
+    plan issue and its sub-issues, not into files.
+  - Builder: `test-driven-development`, `systematic-debugging` for bugs,
+    `verification-before-completion` before ready for review.
+    `using-git-worktrees` is fine with the branch names above.
+  - Independent steps in parallel: `dispatching-parallel-agents`,
+    `subagent-driven-development`.
+  - Review: the Builder asks with `requesting-code-review` and answers the
+    Reviewer with `receiving-code-review`.
+  - End of a branch: `finishing-a-development-branch`, only the option that
+    pushes and opens a pull request. Never merge locally.
 - Never merge. Never approve your own pull request. Never push to main. Never
   change repository settings, rulesets, labels or secrets. If you pushed to
   main by mistake, stop and tell the owner. No force push.
