@@ -89,31 +89,34 @@ Rules for every AI agent in this repository. Humans follow them too.
 
 Plan, then steps. Everything in GitHub, nothing in extra files.
 
-- Plan: every goal starts as a plan issue: the goal, then a checklist of
-  steps. Each step is a sub-issue with what to do and its check. A small
-  request may be one issue with a checklist. A request without an issue:
-  create it first.
+- Plan: every goal starts as a plan issue with the goal. Its steps are
+  sub-issues, in order, each with what to do and its check. The sub-issue list
+  is the checklist: GitHub shows each step as done when its issue closes. A
+  small request may be a single issue. A request without an issue: create it
+  first.
 - One step = one issue = one branch = one pull request. The pull request says
   `Closes #<issue>`, so merging it ticks the step in the plan.
 - Branches (GitHub flow): `main` always works and can be released. Branch from
   the latest `main`: `feat/`, `fix/`, `docs/` or `debug/`, then the issue
-  number and a slug (`feat/12-login`). Short-lived. Squash merge, then the
-  branch is deleted.
-- Several agents: take only an open step that nobody is assigned to and no
-  pull request links to, and that nothing blocks (`Blocked by #<issue>` in its
-  body). Claim it first: assign yourself or comment on the issue, push the
+  number and a slug (`feat/12-login`). Short-lived. The owner squash merges
+  and deletes the branch.
+- Several agents: take only an open step with no claim, no linked pull
+  request, and no open issue it names as `Blocked by #<issue>`. Claim it with
+  a comment on the issue (`Claimed by <agent>`), then re-read the issue: the
+  earliest claim wins, the other agent picks another step. Then push the
   branch and open a draft pull request. Draft means in progress; ready for
   review means built and checked.
 - Roles: Planner (writes the plan issue), Builder (does one step), Reviewer (a
   different agent instance than the Builder). A rejected review is normal:
-  redo it.
+  push the fixes as new commits to the same branch.
 - Pull request description: what changed, the checks you ran and their
   result, what you could not verify, the Reviewer's verdict.
 - Pull request title in the style `Added: ...`, `Changed: ...`, `Fixed: ...`,
   `Removed: ...` or `Security: ...`. Add `!` (for example `Changed!: ...`) for
   a breaking change. The release notes are built from these titles.
-- Keep the branch up to date with `main` and free of conflicts. CI must be
-  green before review.
+- Keep the branch up to date by merging `main` into it (no rebase: that needs
+  a force push). Free of conflicts, and CI green if the project has CI, before
+  review.
 - Debugging: first write the diagnosis and the proposed fix in the issue. A
   separate Builder implements it.
 - No access to issues: put the plan with its checklist in the pull request
