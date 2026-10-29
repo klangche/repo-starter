@@ -4,12 +4,19 @@ Rules for every AI agent in this repository. Humans follow them too.
 `CLAUDE.md` is an identical copy. Keep both identical.
 
 - Source: https://github.com/klangche/repo-starter
-- Based on: https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md
+- Based on: https://github.com/forrestchang/andrej-karpathy-skills/blob/main/CLAUDE.md
   (sections 1-4). The rest extends it.
 - Owner: the person who owns the repository or fork. Never an AI.
 - Only the owner changes this file. Exceptions: the setup and
   `update repo-starter` commands below, in a pull request the owner merges.
 - Caution over speed. For trivial tasks, use judgment.
+- Claude Code plugins (the owner installs them once):
+  `/plugin install superpowers@claude-plugins-official` and
+  `/plugin marketplace add forrestchang/andrej-karpathy-skills`.
+- Precedence: Karpathy principles (sections 1-4) first, then superpowers
+  procedures (brainstorming, TDD, debugging, review). Git, GitHub and file
+  rules in this file (sections 6, 8, 9) override both: plans in issues, not in
+  files; GitHub flow branches; never merge.
 
 ## Commands
 
@@ -33,7 +40,7 @@ Rules for every AI agent in this repository. Humans follow them too.
 
 1. Download the latest repo-starter `AGENTS.md` (link above) and the latest
    Karpathy `CLAUDE.md`
-   (https://raw.githubusercontent.com/multica-ai/andrej-karpathy-skills/main/CLAUDE.md).
+   (https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md).
 2. Replace everything above "Project" in `AGENTS.md` and `CLAUDE.md` with the
    new repo-starter text. Drop the downloaded "Project" section and keep the
    project's own.
@@ -151,10 +158,12 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 ## 8. Build and release
 
 - Everything is built by GitHub Actions. No local builds for releases.
-- CI builds and tests every pull request. Releases build only from tags on
-  `main`.
-- Versions: Semantic Versioning, git tags `vX.Y.Z`. The owner tags. A breaking
-  change bumps MAJOR, a feature MINOR, a fix PATCH.
+- CI builds and tests every pull request. Releases build only from `main`.
+- Releases start in GitHub Actions: the owner runs the release workflow, which
+  creates the tag `vX.Y.Z` and the release. Never create or push a release tag
+  locally.
+- Versions: Semantic Versioning. A breaking change bumps MAJOR, a feature
+  MINOR, a fix PATCH.
 - Release notes: from the pull request titles since the last tag.
 - Assets: `<name>-<version>-<platform>.<ext>`. Builds are unsigned, so when the
   user must run a terminal command or unblock a file, put a short
@@ -186,9 +195,9 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 ## 12. Style
 
 - Short, direct, plain. No marketing language. No emojis.
-- Chat replies: only what the reader needs, in as few words as possible. Do
-  not restate the request or repeat what is already in the issue or pull
-  request. Long replies waste context (section 5).
+- Chat replies, ADHD style: TL;DR first, then short bullets. Only what the
+  reader needs. No restating the request or what is in the issue or pull
+  request. Longer only when necessary. Long replies waste context (section 5).
 - Not sure: say so instead of guessing.
 
 ## Project
