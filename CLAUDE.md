@@ -16,7 +16,7 @@ Rules for every AI agent in this repository. Humans follow them too.
 - Precedence: Karpathy principles (sections 1-4) first, then superpowers
   procedures (brainstorming, TDD, debugging, review). Git, GitHub and file
   rules in this file (sections 6, 8, 9) override both: plans in issues, not in
-  files; GitHub flow branches; never merge.
+  files; `dev` and `main` branches; never merge.
 
 ## Commands
 
@@ -31,10 +31,13 @@ Rules for every AI agent in this repository. Humans follow them too.
    added in step 1.
 3. New repository: write `README.md` about the project (section 10).
    Existing repository: leave its README and code as they are.
-4. One pull request, branch `docs/setup`. Nothing else starts until the owner
-   merges it. Empty repository with no commits: ask the owner to make the
-   first commit, so there is a main branch to open the pull request against.
-5. After the merge, the Planner opens the first plan issue (section 6).
+4. One pull request, branch `docs/setup`, to `main`. Nothing else starts until
+   the owner merges it. Empty repository with no commits: ask the owner to
+   make the first commit, so there is a main branch to open the pull request
+   against.
+5. After the merge, create `dev` from `main` if it is missing, and ask the
+   owner to make `dev` the default branch. Then the Planner opens the first
+   plan issue (section 6).
 
 **`update repo-starter`**:
 
@@ -46,7 +49,9 @@ Rules for every AI agent in this repository. Humans follow them too.
    project's own.
 3. If the Karpathy file says something sections 1-4 do not, list it in the
    pull request. Do not add it yourself.
-4. One pull request, branch `docs/update-repo-starter`, listing what changed.
+4. One pull request, branch `docs/update-repo-starter`, to `dev` (to `main` if
+   there is no `dev` yet; then create `dev` as in Setup step 5), listing what
+   changed.
 
 ## 0. Language
 
@@ -107,10 +112,17 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
   first.
 - One step = one issue = one branch = one pull request. The pull request says
   `Closes #<issue>`, so merging it ticks the step in the plan.
-- Branches (GitHub flow): `main` always works and can be released. Branch from
-  the latest `main`: `feat/`, `fix/`, `docs/` or `debug/`, then the issue
-  number and a slug (`feat/12-login`). Short-lived. The owner squash merges
-  and deletes the branch.
+- Branches: `main` holds only tested releases. `dev` is the beta channel and
+  the default branch. Branch from the latest `dev`: `feat/`, `fix/`, `docs/`
+  or `debug/`, then the issue number and a slug (`feat/12-login`).
+  Short-lived. Pull requests target `dev`. The owner squash merges them and
+  deletes the branch.
+- `dev` to `main`: when `dev` is tested, the owner opens one pull request from
+  `dev` to `main` and merges it with a merge commit (not squash), so the two
+  branches do not drift apart.
+- Hotfix: branch from `main`, pull request to `main`. `Closes #n` does not
+  work there (`main` is not the default branch): the owner closes the issue.
+  After the merge, the owner merges `main` into `dev`.
 - Several agents: take only an open step with no claim, no linked pull
   request, and no open issue it names as `Blocked by #<issue>`. Claim it with
   a comment on the issue (`Claimed by <agent>`), then re-read the issue: the
@@ -125,9 +137,9 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 - Pull request title in the style `Added: ...`, `Changed: ...`, `Fixed: ...`,
   `Removed: ...` or `Security: ...`. Add `!` (for example `Changed!: ...`) for
   a breaking change. The release notes are built from these titles.
-- Keep the branch up to date by merging `main` into it (no rebase: that needs
-  a force push). Free of conflicts, and CI green if the project has CI, before
-  review.
+- Keep the branch up to date by merging its target (`dev`, or `main` for a
+  hotfix) into it. No rebase: that needs a force push. Free of conflicts, and
+  CI green if the project has CI, before review.
 - Debugging: first write the diagnosis and the proposed fix in the issue. A
   separate Builder implements it.
 - No access to issues: put the plan with its checklist in the pull request
@@ -145,9 +157,10 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
     Reviewer with `receiving-code-review`.
   - End of a branch: `finishing-a-development-branch`, only the option that
     pushes and opens a pull request. Never merge locally.
-- Never merge. Never approve your own pull request. Never push to main. Never
-  change repository settings, rulesets, labels or secrets. If you pushed to
-  main by mistake, stop and tell the owner. No force push.
+- Never merge. Never approve your own pull request. Never push to `main` or
+  `dev` (except creating `dev` in Setup step 5). Never change repository
+  settings, rulesets, labels or secrets. If you pushed to `main` or `dev` by
+  mistake, stop and tell the owner. No force push.
 
 ## 7. Code
 
@@ -171,13 +184,17 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 ## 8. Build and release
 
 - Everything is built by GitHub Actions. No local builds for releases.
-- CI builds and tests every pull request. Releases build only from `main`.
-- Releases start in GitHub Actions: the owner runs the release workflow, which
-  creates the tag `vX.Y.Z` and the release. Never create or push a release tag
-  locally.
+- CI builds and tests every pull request, to `dev` and to `main`.
+- Beta: every merge into `dev` publishes a pre-release `vX.Y.Z-beta.N` from
+  GitHub Actions, marked as pre-release. `X.Y.Z` is the next version, `N`
+  counts up.
+- Release: only from `main`. The owner runs the release workflow in GitHub
+  Actions, which creates the tag `vX.Y.Z` and the release. Never create or
+  push a tag locally.
 - Versions: Semantic Versioning. A breaking change bumps MAJOR, a feature
   MINOR, a fix PATCH.
-- Release notes: from the pull request titles since the last tag.
+- Release notes: from the pull request titles since the last release (not
+  the last beta).
 - Assets: `<name>-<version>-<platform>.<ext>`. Builds are unsigned, so when the
   user must run a terminal command or unblock a file, put a short
   `READ_ME_FIRST.txt` with the exact command in the zip.
