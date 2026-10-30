@@ -113,8 +113,9 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
     code, an API or a launcher.
   - Start separate: merging repositories later is easy, splitting a monorepo
     is hard.
-  - A goal across several repositories: plan it in a GitHub Project. Its
-    issues and sub-issues live in the repositories they change.
+  - A goal across several repositories: plan it in a GitHub Project
+    (Project > repository > app or package). Its issues and sub-issues live
+    in the repositories they change.
 
 - Plan: every goal starts as a plan issue with the goal. Its steps are
   sub-issues, in order, each with what to do and its check. The sub-issue list
