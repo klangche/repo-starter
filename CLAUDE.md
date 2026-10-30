@@ -26,9 +26,10 @@ Rules for every AI agent in this repository. Humans follow them too.
    and save it as `AGENTS.md` and `CLAUDE.md`. If the project already has
    either file, add its rules under "Project" in the new file, commit that,
    and quote the old text in the pull request description.
-2. Ask the owner what is unclear. Propose the stack. In "Project" below,
-   replace the repo-starter values with the project's own. Keep any rules
-   added in step 1.
+2. Ask the owner what is unclear, and how the code is split (section 6,
+   "Repository structure"). Propose the stack. In "Project" below, replace
+   the repo-starter values with the project's own, including the structure.
+   Keep any rules added in step 1.
 3. New repository: write `README.md` about the project (section 10).
    Existing repository: leave its README and code as they are.
 4. One pull request, branch `docs/setup`, to `main`. Nothing else starts until
@@ -104,6 +105,17 @@ Rules for every AI agent in this repository. Humans follow them too.
 ## 6. Workflow
 
 Plan, then steps. Everything in GitHub, nothing in extra files.
+
+- Repository structure (asked in Setup):
+  - Separate repositories by default, for one developer or many: simple,
+    clear ownership, no tangled code.
+  - A monorepo (one repository, one folder per app) only when apps share
+    code, an API or a launcher.
+  - Start separate: merging repositories later is easy, splitting a monorepo
+    is hard.
+  - A goal across several repositories: plan it in a GitHub Project
+    (Project > repository > app or package). Its issues and sub-issues live
+    in the repositories they change.
 
 - Plan: every goal starts as a plan issue with the goal. Its steps are
   sub-issues, in order, each with what to do and its check. The sub-issue list
@@ -238,6 +250,7 @@ Filled in by the setup pull request. Changed only by the owner.
   else `none`: then these rules are the only guard)
 - Goal: repo-starter itself. Two files of rules for AI agents, used by link.
 - Users and platforms: anyone using an AI coding agent, any platform.
+- Repository structure: one repository.
 - Stack: Markdown.
 - Decisions:
   - 2026-10-28: everything in AGENTS.md and CLAUDE.md. No other files except
