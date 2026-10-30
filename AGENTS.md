@@ -120,8 +120,9 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 - `dev` to `main`: when `dev` is tested, the owner opens one pull request from
   `dev` to `main` and merges it with a merge commit (not squash), so the two
   branches do not drift apart.
-- Hotfix: branch from `main`, pull request to `main`. After the merge, the
-  owner merges `main` into `dev`.
+- Hotfix: branch from `main`, pull request to `main`. `Closes #n` does not
+  work there (`main` is not the default branch): the owner closes the issue.
+  After the merge, the owner merges `main` into `dev`.
 - Several agents: take only an open step with no claim, no linked pull
   request, and no open issue it names as `Blocked by #<issue>`. Claim it with
   a comment on the issue (`Claimed by <agent>`), then re-read the issue: the
@@ -137,8 +138,8 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
   `Removed: ...` or `Security: ...`. Add `!` (for example `Changed!: ...`) for
   a breaking change. The release notes are built from these titles.
 - Keep the branch up to date by merging its target (`dev`, or `main` for a
-  hotfix) into it (no rebase: that needs a force push). Free of conflicts, and CI green if the project has CI, before
-  review.
+  hotfix) into it. No rebase: that needs a force push. Free of conflicts, and
+  CI green if the project has CI, before review.
 - Debugging: first write the diagnosis and the proposed fix in the issue. A
   separate Builder implements it.
 - No access to issues: put the plan with its checklist in the pull request
@@ -157,9 +158,9 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
   - End of a branch: `finishing-a-development-branch`, only the option that
     pushes and opens a pull request. Never merge locally.
 - Never merge. Never approve your own pull request. Never push to `main` or
-  `dev`. Never
-  change repository settings, rulesets, labels or secrets. If you pushed to
-  `main` or `dev` by mistake, stop and tell the owner. No force push.
+  `dev` (except creating `dev` in Setup step 5). Never change repository
+  settings, rulesets, labels or secrets. If you pushed to `main` or `dev` by
+  mistake, stop and tell the owner. No force push.
 
 ## 7. Code
 
