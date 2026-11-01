@@ -1,0 +1,2 @@
+Draft only. This note file is not part of v2. Delete the whole
+v2-draft/ folder once its contents are applied to the repo.
