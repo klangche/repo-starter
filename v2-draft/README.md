@@ -1,8 +1,9 @@
-```text
-Install:   Paste the "Install" prompt below into any AI agent in your repository.
-Update:    Paste the "Update" prompt after `update repo-starter`.
-Uninstall: Paste the "Uninstall" prompt to remove installed files only.
-```
+
+###Install, Update, Uninstall:
+Paste this into AI connected to your repo: 
+``` Install "https://github.com/klangche/repo-starter" in this repo```
+```update repo-starter`.```
+ ```update repo-starter`.```
 
 # repo-starter
 
