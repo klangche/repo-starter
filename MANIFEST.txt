@@ -1,0 +1,12 @@
+# repo-starter v2 - files installed and owned by repo-starter
+# An installer agent downloads each path from main, writes it,
+# and records sha256(path) in .repo-starter.lock. Never write any other
+# file. README.md (the adopting project's own) is NOT in this manifest.
+AGENTS.md
+CLAUDE.md
+.github/copilot-instructions.md
+.claude/agents/code-reviewer.md
+.claude/skills/planning/SKILL.md
+.claude/skills/tdd/SKILL.md
+.claude/skills/debugging/SKILL.md
+.claude/skills/review-pr/SKILL.md
