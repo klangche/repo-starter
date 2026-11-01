@@ -1,12 +1,16 @@
+## Install, update, uninstall
 
-#Install, Update, Uninstall
-Paste to your llrm connected to your repo:
+Paste one of these into any AI agent connected to your repository. The full
+prompts are below; the agent reads them from this page.
+
 ```text
-Set up this repository with https://github.com/klangche/repo-starter.
+Install repo-starter from https://github.com/klangche/repo-starter in this repository.
 ```
+
 ```text
 update repo-starter
 ```
+
 ```text
 Uninstall repo-starter
 ```
@@ -24,11 +28,9 @@ goal of an increasingly wide de-facto standard.
 ## What gets installed
 
 ```text
-AGENTS.md                            canon, all agents (setup fills only "# Project")
+AGENTS.md                            canon, all agents (setup fills only "## Project")
 CLAUDE.md                           thin Claude Code pointer (<40 lines)
 .github/copilot-instructions.md     thin pointer, GitHub Copilot
-.claude/settings.json               hook wiring
-.claude/hooks/filter-test-output.sh trim verbose output before it is read
 .claude/agents/code-reviewer.md     reviewer subagent (own context)
 .claude/skills/planning/SKILL.md
 .claude/skills/tdd/SKILL.md
@@ -38,27 +40,26 @@ CLAUDE.md                           thin Claude Code pointer (<40 lines)
 ```
 
 Skills load lazily: only name and description sit in context until a
-skill triggers. Hooks enforce rules outside the model. Subagents keep
-review out of the builder's context. The list may grow, but each added skill must earn its
-tokens.
+skill triggers. Subagents keep review out of the builder's context. The
+list may grow, but each added skill must earn its tokens.
 
 ## Install
 
 Paste this into any agent in the target repository:
 
 ```text
-Install repo-starter rules in this repository from https://github.com/klangche/repo-starter, tag v2.
+Install repo-starter rules in this repository from https://github.com/klangche/repo-starter, branch main.
 
-1. Download https://raw.githubusercontent.com/klangche/repo-starter/v2/MANIFEST.txt .
+1. Download https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt .
 2. Download every path listed from
-   https://raw.githubusercontent.com/klangche/repo-starter/v2/<path> and
+   https://raw.githubusercontent.com/klangche/repo-starter/main/<path> and
    write it unchanged at the same path, creating folders as needed.
 3. Never overwrite any file that is not in the manifest. If AGENTS.md
    already exists and has a section another tooling owns, keep it.
 4. Write .repo-starter.lock: one line per installed file, the path and
    its sha256 in plain text.
 5. Then follow the "Setup" command in the new AGENTS.md (ask me what is
-   unclear, fill the "# Project" section, open the docs/setup pull
+   unclear, fill the "## Project" section, open the docs/setup pull
    request).
 ```
 
@@ -70,12 +71,15 @@ update repo-starter
 Reinstall per the repo-starter install prompt (same source, same
 manifest) with these rules:
 1. Overwrite the manifest files with the new contents.
-2. Restores, after the overwrite, the "# Project" section of the
-   previous AGENTS.md byte for byte; regenerate CLAUDE.md and
-   .github/copilot-instructions.md from the identifiers in the new
-   AGENTS.md if the generator has changed.
-3. Refresh .repo-starter.lock from what is on disk after the update.
-4. Answer with a per-file change report, then stop.
+2. Restore, after the overwrite, the "## Project" section of the
+   previous AGENTS.md byte for byte.
+3. Upgrading from v1 (no .repo-starter.lock, CLAUDE.md is a full copy
+   of AGENTS.md): the manifest CLAUDE.md replaces it. Nothing else to
+   move: the Project section lives in AGENTS.md.
+4. Write or refresh .repo-starter.lock from what is on disk after the
+   update.
+5. One pull request, branch docs/update-repo-starter, with a per-file
+   change report. Then stop.
 ```
 
 ## Uninstall
@@ -98,16 +102,16 @@ Uninstall repo-starter from this repository.
 
 AGENTS.md is the only thing every session always reads (about 3,000
 tokens). Skills add their description line, and their body only when
-triggered. Hooks and subagents spend no model context. Offline work: all
+triggered. Subagents spend no context of the main session. Offline work: all
 rules and skills are files in the repo, nothing calls out.
 
 ## Credits
 
 - Andrej Karpathy-style agent guidelines:
-  https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md
+  https://github.com/forrestchang/andrej-karpathy-skills/blob/main/CLAUDE.md
 - The AI-native SDLC playbook (Claude Academy):
   https://academy.claude.com/courses/ai-native-sdlc-playbook
-- Superpowers by obra: https://github.com/obra/superpowers
+- Superpowers by Jesse Vincent (MIT): https://github.com/obra/superpowers
 - Based on repo-starter rules by klangche:
   https://github.com/klangche/repo-starter
 
@@ -120,7 +124,7 @@ These are the parts of v2 that are in none of the credited sources:
   agent downloads `MANIFEST.txt`, writes the files, and does everything
   else itself.
 - The sha256 receipt (`.repo-starter.lock`): update restores the local
-  "# Project" section byte for byte; uninstall deletes only files whose
+  "## Project" section byte for byte; uninstall deletes only files whose
   content still matches the receipt and refuses to guess without one.
   Nothing in the credited sources scopes a removal like this.
 - The all-agent canon split: tool-independent rules in `AGENTS.md` with
@@ -129,8 +133,8 @@ These are the parts of v2 that are in none of the credited sources:
   the same canon instead of one Claude-only rules file.
 - Token-efficiency requirements as rules, not tips (AGENTS.md section
   5: lazy skill loading, subagents for isolation, hooks instead of
-  prompt text), and the hook to trim verbose output before it is read.
-- Superpowers' planning / tdd / debugging / review-pr vendored as
+  prompt text).
+- Superpowers' planning / tdd / debugging / review-pr adapted as
   portable `SKILL.md` files in the repo, so they load per trigger,
   work offline, and survive in agent types without the superpowers
   plugin.

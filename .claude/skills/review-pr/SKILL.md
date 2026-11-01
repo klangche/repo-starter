@@ -30,3 +30,6 @@ Output exactly one verdict:
 - `Question: <one thing the Builder must answer>`
 
 No verdict is never an option: a reviewer who cannot decide rejects.
+
+Adapted from superpowers by Jesse Vincent
+(https://github.com/obra/superpowers, MIT License).

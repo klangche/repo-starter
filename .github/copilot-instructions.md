@@ -5,6 +5,6 @@ agents. Workflow: plan issue, sub-issues, one branch and one pull request
 per step, target `dev`. Never merge, never push to `main`/`dev`.
 
 Role files live in `.claude/`: skills under `skills/`, the reviewer
-subagent under `agents/`, hooks under `hooks/`. When your task is
+subagent under `agents/`. When your task is
 planning, TDD, debugging or review, open the matching skill file and
 follow it before starting.

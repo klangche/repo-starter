@@ -43,3 +43,6 @@ live in GitHub issues, never in local files.
 - The checklist is the sub-issue list. The Planner stops there. What the
   Builder's checks are, and what "done" means, must be readable in the
   issues without talking to the Planner.
+
+Adapted from superpowers by Jesse Vincent
+(https://github.com/obra/superpowers, MIT License).

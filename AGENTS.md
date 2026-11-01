@@ -5,14 +5,16 @@ Rules for every AI agent in this repository. Humans follow them too.
 
 Based on:
 - Andrej Karpathy's agent guidelines,
-  https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md
+  https://github.com/forrestchang/andrej-karpathy-skills/blob/main/CLAUDE.md
 - The AI-native SDLC playbook (Claude Academy),
   https://academy.claude.com/courses/ai-native-sdlc-playbook
 - Superpowers skill pack, https://github.com/obra/superpowers
-  (vendored subset: tdd, review-pr, debugging, planning in `.claude/skills/`)
+  (MIT; tdd, review-pr, debugging and planning adapted in `.claude/skills/`)
 - Owner: the person who owns the repository or fork. Never an AI.
-- Precedence: Karpathy principles first, then the SDLC playbook structure.
-  Git, GitHub rules (Workflow) override both.
+- Precedence: Karpathy principles (sections 1-4) first, then superpowers
+  procedures (the skills in `.claude/skills/`, or the plugin), then the
+  SDLC playbook structure. Git, GitHub and file rules (sections 6, 8, 9)
+  override all of them.
 
 ## Commands
 
@@ -29,14 +31,16 @@ README):
 3. After the merge, create `dev` if it is missing, and make it the default
    branch (owner action). The Planner opens the first plan issue.
 
-**Update** (owner types `update repo-starter`): re-run the install prompt
-from repo-starter's README. It overwrites the canon files, restores the
-"# Project" section unchanged, regenerates `CLAUDE.md`, and refreshes
-`.repo-starter.lock`.
+**Update** (owner types `update repo-starter`): follow the Update prompt in
+the repo-starter README (https://github.com/klangche/repo-starter). It
+overwrites the manifest files, restores the "## Project" section unchanged,
+and refreshes `.repo-starter.lock`. Upgrading from v1 (no `MANIFEST.txt`
+files or `.repo-starter.lock` here): follow the same Update prompt.
 
 **Uninstall** (owner runs the uninstall prompt): removes only the files
 listed in `.repo-starter.lock` whose contents are unchanged. Everything
-edited by the owner or created by others stays. Requires and never guesses.
+edited by the owner or created by others stays. Without the lock file it
+stops and asks; it never guesses.
 
 ## 0. Language
 
@@ -51,6 +55,7 @@ edited by the owner or created by others stays. Requires and never guesses.
 - State assumptions. If unsure, ask. Several readings: list them and ask.
 - Unclear: stop, name what is unclear, ask.
 - A simpler way exists: say so. Push back when the request looks wrong.
+- Name the tradeoffs between options.
 - Once the owner has decided (language, stack, design), build. Do not ask
   again.
 
@@ -90,6 +95,12 @@ edited by the owner or created by others stays. Requires and never guesses.
 
 Plan, then steps. Everything in GitHub, nothing in extra files.
 
+- Repository structure (asked in Setup): separate repositories by default,
+  for one developer or many. A monorepo (one folder per app) only when apps
+  share code, an API or a launcher. Start separate: merging later is easy,
+  splitting a monorepo is hard. A goal across repositories: plan it in a
+  GitHub Project (Project > repository > app or package).
+
 - Plan: every goal starts as a plan issue with the goal. Its steps are
   sub-issues, in order, each with what to do and its check. The sub-issue
   list is the checklist. A request without an issue: create it first.
@@ -102,8 +113,12 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 - `dev` to `main`: one pull request, merge commit (not squash).
 - Hotfix: branch from `main`, pull request to `main`; the owner closes
   the issue and merges `main` into `dev` after.
-- Several agents: claim an open step with a comment on the issue; the
-  earliest claim wins. Push the branch, open a draft pull request.
+- Several agents: take only an open step with no claim, no linked pull
+  request and no open `Blocked by #<issue>`. Claim it with a comment, then
+  re-read the issue: the earliest claim wins, the other agent picks another
+  step. Push the branch, open a draft pull request.
+- Keep the branch up to date by merging its target into it. No rebase: that
+  needs a force push.
 - Roles: Planner (plan issue), Builder (one step), Reviewer (a different
   agent instance; see `.claude/agents/code-reviewer.md`).
 - Pull request description: what changed, the checks you ran with results,
@@ -145,10 +160,14 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 - Everything is built by GitHub Actions. No local builds for releases.
 - CI builds and tests every pull request, to `dev` and to `main`.
 - Beta: every merge into `dev` publishes a pre-release `vX.Y.Z-beta.N`.
-  Release: only from `main`, by the release workflow. Versioning:
-  SemVer; release notes from pull request titles since the last release.
+  Release: only from `main`; the owner runs the release workflow in
+  GitHub Actions, which creates the tag `vX.Y.Z`. Never create or push a
+  tag locally. Versioning: SemVer; release notes from pull request titles
+  since the last release (not the last beta).
 - Assets: `<name>-<version>-<platform>.<ext>`; unsigned, so add a short
   `READ_ME_FIRST.txt` with any terminal command the user must run.
+- Windows: .msi, silent update if already installed. macOS: one universal
+  build. Linux: only on request.
 
 ## 9. Secrets and safety
 
@@ -182,7 +201,7 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 - The installing agent writes `.repo-starter.lock`: every installed file
   with its sha256. It is machine data, refresh on update, read on
   uninstall.
-- The owner may edit everything after "# Project" (Project section) and
+- The owner may edit everything after "## Project" (Project section) and
   nothing else. Uninstall must return all other installed files and the
   folders they came with only if the content hash matches the receipt.
 
@@ -197,6 +216,6 @@ Filled in by the setup pull request. Changed only by the owner.
 - Stack: Markdown.
 - Decisions:
   - 2026-11-01: v2. Canon in AGENTS.md, thin CLAUDE.md, portable skills
-    in .claude/skills, hooks in .claude, install/update/uninstall by
+    in .claude/skills, install/update/uninstall by
     paste prompt with a sha256 receipt (.repo-starter.lock). Track v2
     issues on dev until testing done, then v2 to main.
