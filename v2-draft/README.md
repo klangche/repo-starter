@@ -2,11 +2,15 @@
 ###Install, Update, Uninstall:
 Paste this into AI connected to your repo: '
 
-```text Install "https://github.com/klangche/repo-starter" in this repo```
-
-```textupdate repo-starter`.```
-
-```text update repo-starter`.```
+```text
+Install "https://github.com/klangche/repo-starter" in this repo
+```
+```text
+textupdate repo-starter`.
+```
+```text
+text update repo-starter`.
+```
 
 # repo-starter
 
