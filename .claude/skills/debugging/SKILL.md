@@ -22,3 +22,6 @@ an unfixed bug (AGENTS.md section 4 and the workflow section).
    step 2, do not patch over it.
 6. If you cannot find it, say so in the issue and stop. Do not write a
    fake fix to look done.
+
+Adapted from superpowers by Jesse Vincent
+(https://github.com/obra/superpowers, MIT License).

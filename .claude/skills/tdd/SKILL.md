@@ -22,3 +22,6 @@ cleanup. Never claim it works without running it (AGENTS.md section 4).
 6. State in the final summary what was verified by running, and what was
    not verified. No partial honesty: "not verified" is allowed, "works"
    without a run is not.
+
+Adapted from superpowers by Jesse Vincent
+(https://github.com/obra/superpowers, MIT License).
