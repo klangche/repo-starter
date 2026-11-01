@@ -42,8 +42,9 @@ files or `.repo-starter.lock` here): follow the same Update prompt.
 
 **Uninstall** (owner runs the uninstall prompt): removes only the files
 listed in `.repo-starter.lock` whose contents are unchanged. Everything
-edited by the owner or created by others stays. Without the lock file it
-stops and asks; it never guesses.
+edited by the owner or created by others stays. It asks before deleting
+`AGENTS.md` and removes the lock last. Without the lock file it stops and
+asks; it never guesses.
 
 ## 0. Language
 

@@ -2,9 +2,6 @@
 Install repo-starter from https://github.com/klangche/repo-starter in this repository.
 ```
 
-Paste one of these into any AI agent connected to your repository. The full
-prompts are below; the agent reads them from this page.
-
 ```text
 update repo-starter
 ```
@@ -12,6 +9,9 @@ update repo-starter
 ```text
 Uninstall repo-starter
 ```
+
+Paste one of these into any AI agent connected to your repository. The full
+prompts are below; the agent reads them from this page.
 
 # repo-starter
 
@@ -78,7 +78,7 @@ manifest) with these rules:
    of AGENTS.md): the manifest CLAUDE.md replaces it. Nothing else to
    move: the Project section lives in AGENTS.md.
 4. Write or refresh .repo-starter.lock from what is on disk after the
-   update.
+   update. For AGENTS.md, hash only the text above "## Project".
 5. One pull request, branch docs/update-repo-starter, to dev (to main
    if there is no dev), with a per-file change report. Then stop.
 ```
@@ -97,8 +97,8 @@ Uninstall repo-starter from this repository.
 3. Delete folders that house the removed manifest paths, but only when
    they are now empty.
 4. Delete .repo-starter.lock. Touch nothing else. Report: removed
-   files, kept (changed) files, folders removed. Ask before continuing if a destructive step still
-   stands.
+   files, kept (changed) files, folders removed. Ask before continuing
+   if a destructive step still stands.
 ```
 
 ## Tokens
