@@ -1,11 +1,9 @@
-## Install, update, uninstall
-
-Paste one of these into any AI agent connected to your repository. The full
-prompts are below; the agent reads them from this page.
-
 ```text
 Install repo-starter from https://github.com/klangche/repo-starter in this repository.
 ```
+
+Paste one of these into any AI agent connected to your repository. The full
+prompts are below; the agent reads them from this page.
 
 ```text
 update repo-starter
@@ -28,7 +26,7 @@ goal of an increasingly wide de-facto standard.
 ## What gets installed
 
 ```text
-AGENTS.md                            canon, all agents (setup fills only "## Project")
+AGENTS.md                           canon, all agents (setup fills only "## Project")
 CLAUDE.md                           thin Claude Code pointer (<40 lines)
 .github/copilot-instructions.md     thin pointer, GitHub Copilot
 .claude/agents/code-reviewer.md     reviewer subagent (own context)
@@ -54,10 +52,13 @@ Install repo-starter rules in this repository from https://github.com/klangche/r
 2. Download every path listed from
    https://raw.githubusercontent.com/klangche/repo-starter/main/<path> and
    write it unchanged at the same path, creating folders as needed.
-3. Never overwrite any file that is not in the manifest. If AGENTS.md
-   already exists and has a section another tooling owns, keep it.
+3. Never overwrite any file that is not in the manifest. If AGENTS.md,
+   CLAUDE.md or .github/copilot-instructions.md already exist, move
+   their rules under "## Project" in the new AGENTS.md and quote the
+   old text in the setup pull request.
 4. Write .repo-starter.lock: one line per installed file, the path and
-   its sha256 in plain text.
+   its sha256 in plain text. For AGENTS.md, hash only the text above
+   "## Project".
 5. Then follow the "Setup" command in the new AGENTS.md (ask me what is
    unclear, fill the "## Project" section, open the docs/setup pull
    request).
@@ -78,8 +79,8 @@ manifest) with these rules:
    move: the Project section lives in AGENTS.md.
 4. Write or refresh .repo-starter.lock from what is on disk after the
    update.
-5. One pull request, branch docs/update-repo-starter, with a per-file
-   change report. Then stop.
+5. One pull request, branch docs/update-repo-starter, to dev (to main
+   if there is no dev), with a per-file change report. Then stop.
 ```
 
 ## Uninstall
@@ -91,10 +92,12 @@ Uninstall repo-starter from this repository.
    never guess what was installed.
 2. For each file in the receipt: sha256 unchanged -> delete it; changed
    -> keep it and note it in the final report as "changed, kept".
+   AGENTS.md is compared on the text above "## Project"; ask me before
+   deleting it, because it holds the Project section.
 3. Delete folders that house the removed manifest paths, but only when
    they are now empty.
-4. Touch nothing else. Report: removed files, kept (changed) files,
-   folders removed. Ask before continuing if a destructive step still
+4. Delete .repo-starter.lock. Touch nothing else. Report: removed
+   files, kept (changed) files, folders removed. Ask before continuing if a destructive step still
    stands.
 ```
 

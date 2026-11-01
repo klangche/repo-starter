@@ -11,6 +11,9 @@ Based on:
 - Superpowers skill pack, https://github.com/obra/superpowers
   (MIT; tdd, review-pr, debugging and planning adapted in `.claude/skills/`)
 - Owner: the person who owns the repository or fork. Never an AI.
+- Only the owner changes this file. Exceptions: the setup and update
+  commands below, in a pull request the owner merges.
+- Caution over speed. For trivial tasks, use judgment.
 - Precedence: Karpathy principles (sections 1-4) first, then superpowers
   procedures (the skills in `.claude/skills/`, or the plugin), then the
   SDLC playbook structure. Git, GitHub and file rules (sections 6, 8, 9)
@@ -116,11 +119,14 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 - Several agents: take only an open step with no claim, no linked pull
   request and no open `Blocked by #<issue>`. Claim it with a comment, then
   re-read the issue: the earliest claim wins, the other agent picks another
-  step. Push the branch, open a draft pull request.
+  step. Push the branch, open a draft pull request. Draft means in
+  progress; ready for review means built and checked.
 - Keep the branch up to date by merging its target into it. No rebase: that
-  needs a force push.
+  needs a force push. Free of conflicts, and CI green if the project has CI,
+  before review.
 - Roles: Planner (plan issue), Builder (one step), Reviewer (a different
-  agent instance; see `.claude/agents/code-reviewer.md`).
+  agent instance; see `.claude/agents/code-reviewer.md`). A rejected review
+  is normal: push the fixes as new commits to the same branch.
 - Pull request description: what changed, the checks you ran with results,
   what you could not verify, the Reviewer's verdict. Title in the style
   `Added: ...`, `Changed: ...`, `Fixed: ...`, `Removed: ...`,
@@ -186,12 +192,13 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 
 - Works and verified, or clearly says what was not verified.
 - Issue closed by the merged pull request; Reviewer approved (noted in
-  the pull request); CI green.
+  the pull request); CI green, if the project has CI.
 
 ## 12. Style
 
 - Short, direct, plain. No marketing language. No emojis. Chat replies:
   TL;DR first, then short bullets. Long replies waste context (section 5).
+- Not sure: say so instead of guessing.
 
 ## Install, update, uninstall (for repo-starter itself)
 
@@ -199,11 +206,11 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
   `MANIFEST.txt`. `CLAUDE.md` and `.github/copilot-instructions.md` are
   generated from this file; changing one means updating all three.
 - The installing agent writes `.repo-starter.lock`: every installed file
-  with its sha256. It is machine data, refresh on update, read on
-  uninstall.
-- The owner may edit everything after "## Project" (Project section) and
-  nothing else. Uninstall must return all other installed files and the
-  folders they came with only if the content hash matches the receipt.
+  with its sha256. For `AGENTS.md` the hash covers only the text above
+  "## Project", because Setup fills that section. It is machine data:
+  refreshed on update, read on uninstall.
+- Uninstall deletes an installed file only if its hash still matches the
+  lock, then the lock itself. Changed files stay.
 
 ## Project
 
