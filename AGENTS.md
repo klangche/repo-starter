@@ -94,6 +94,9 @@ asks; it never guesses.
     its own instructions, not the whole conversation.
   - Hooks run outside the model entirely. Prefer a hook over prompt text
     when a rule must always hold.
+- Run tests, builds and linters in quiet mode (`pytest -q`,
+  `npm test --silent`, `cargo test -q`, `go test` without `-v`). Read the
+  full output only when a failure needs it.
 
 ## 6. Workflow
 
