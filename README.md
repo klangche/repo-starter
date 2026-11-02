@@ -1,3 +1,5 @@
+## Paste into Ai Prompt:
+
 ```text
 Install repo-starter from https://github.com/klangche/repo-starter in this repository.
 ```
