@@ -21,6 +21,7 @@ Read `AGENTS.md` first. Then, in order:
    "Works" claimed by the Builder without a run is never accepted.
 4. Style and hygiene: existing conventions win; formatter/linter clean;
    secrets absent, config outside the code, lock files present.
+   Labels as AGENTS.md section 6 requires.
 5. Tests: bug fixes must come with the test that reproduces them. Fixes
    without tests are change requests.
 

@@ -81,7 +81,9 @@ manifest) with these rules:
    move: the Project section lives in AGENTS.md.
 4. Write or refresh .repo-starter.lock from what is on disk after the
    update. For AGENTS.md, hash only the text above "## Project".
-5. One pull request, branch docs/update-repo-starter, to dev (to main
+5. Create the labels from AGENTS.md section 6 that are missing in the
+   repository. Nothing else in repository settings.
+6. One pull request, branch docs/update-repo-starter, to dev (to main
    if there is no dev), with a per-file change report. Then stop.
 ```
 
