@@ -29,6 +29,8 @@ live in GitHub issues, never in local files.
 - One plan issue with the goal. Its steps are ordered sub-issues, each
   with: what to do, and its check (a test, a command, an expected
   output).
+- Label on creation (AGENTS.md section 6): the plan issue gets `plan`,
+  each sub-issue its type label (`enhancement`, `bug`, `documentation`).
 - One step = one issue = one branch = one pull request. Keep steps small
   enough to finish and verify in one session.
 - Steps that need a bug diagnosed first: the debugging skill applies to

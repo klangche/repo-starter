@@ -12,5 +12,6 @@ only holds Claude Code specifics. Keep under 40 lines.
   and `/plugin marketplace add forrestchang/andrej-karpathy-skills`. The
   vendored skills in `.claude/skills/` already cover planning, TDD,
   debugging and review, so the plugin is a bonus, not a requirement.
-- Branches and pull requests follow `AGENTS.md` §6 exactly. Never merge,
-  never push to `main`/`dev`.
+- Branches, pull requests and labels follow `AGENTS.md` §6 exactly.
+  Label every issue and pull request on creation. Never merge, never
+  push to `main`/`dev`.
