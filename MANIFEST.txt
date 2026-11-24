@@ -5,6 +5,7 @@
 AGENTS.md
 CLAUDE.md
 .github/copilot-instructions.md
+.github/workflows/labels.yml
 .claude/agents/code-reviewer.md
 .claude/skills/planning/SKILL.md
 .claude/skills/tdd/SKILL.md
