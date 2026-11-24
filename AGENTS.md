@@ -35,15 +35,16 @@ README):
 2. New repository: write `README.md` about the project (section 10).
    Existing repository: leave its README and code as they are.
 3. After the merge, create `dev` if it is missing, and make it the default
-   branch (owner action). The labels workflow
-   (`.github/workflows/labels.yml`) creates the missing labels from
-   section 6 on merge; if it did not run, the owner starts it from the
-   Actions tab. The Planner opens the first plan issue.
+   branch (owner action). All section 6 labels must exist; skip ones
+   that do. The agent creates the missing ones if its tools can, and
+   the labels workflow (`.github/workflows/labels.yml`) creates them on
+   every push to `main`/`dev`. Neither worked: tell the owner to run the
+   workflow from the Actions tab. The Planner opens the first plan issue.
 
 **Update** (owner types `update repo-starter`): follow the Update prompt in
 the repo-starter README (https://github.com/klangche/repo-starter). It
 overwrites the manifest files, restores the "## Project" section unchanged,
-lets the labels workflow create missing labels, and refreshes
+creates the missing labels as in Setup step 3, and refreshes
 `.repo-starter.lock`. Upgrading from v1 (no `MANIFEST.txt`
 files or `.repo-starter.lock` here): follow the same Update prompt.
 
@@ -164,8 +165,8 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
   description instead.
 - Never merge. Never approve your own pull request. Never push to `main`
   or `dev` (except creating `dev` in Setup). Never change repository
-  settings, rulesets, label definitions or secrets (the labels workflow
-  creates missing labels); applying labels is required. If you pushed to
+  settings, rulesets, label definitions or secrets (except creating
+  missing labels in Setup or Update); applying labels is required. If you pushed to
   `main`/`dev` by mistake, stop and tell the owner. No force push.
 
 ## 7. Code

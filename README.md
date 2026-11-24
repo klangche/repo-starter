@@ -84,8 +84,9 @@ manifest) with these rules:
    move: the Project section lives in AGENTS.md.
 4. Write or refresh .repo-starter.lock from what is on disk after the
    update. For AGENTS.md, hash only the text above "## Project".
-5. Labels: the labels workflow creates the missing ones after the merge.
-   Nothing else in repository settings.
+5. Create the labels from AGENTS.md section 6 that are missing, if your
+   tools can; skip existing ones. The labels workflow also creates them
+   after the merge. Nothing else in repository settings.
 6. One pull request, branch docs/update-repo-starter, to dev (to main
    if there is no dev), with a per-file change report. Then stop.
 ```
