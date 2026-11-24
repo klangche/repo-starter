@@ -58,9 +58,12 @@ Paste this into any agent in the target repository:
 ```text
 Install repo-starter rules in this repository from https://github.com/klangche/repo-starter, branch main.
 
-0. Line 2 of the manifest names a successor (`# successor <url>`):
-   install the successor instead, with the install prompt in its README,
-   and stop here.
+0. Successor check: line 2 of the manifest names a successor
+   (`# successor <url>`) AND line 1 of
+   https://raw.githubusercontent.com/klangche/Controlroom/main/MANIFEST.txt
+   is `# version 3.0.0` or higher: install the successor instead, with
+   the install prompt in its README, and stop here. Otherwise (lower,
+   or the fetch fails): ignore the successor line and carry on below.
 1. Download https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt .
 2. Download every path listed (skip `#` lines) from
    https://raw.githubusercontent.com/klangche/repo-starter/main/<path> and
@@ -83,10 +86,14 @@ Install repo-starter rules in this repository from https://github.com/klangche/r
 ```text
 update repo-starter
 
-0. Line 2 of https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt
-   names a successor (`# successor <url>`): follow the Update prompt in
-   the successor's README instead (it migrates .repo-starter.lock and
-   asks me one question first), and skip the steps below.
+0. Successor check: line 2 of
+   https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt
+   names a successor (`# successor <url>`) AND line 1 of
+   https://raw.githubusercontent.com/klangche/Controlroom/main/MANIFEST.txt
+   is `# version 3.0.0` or higher: follow the Update prompt in the
+   successor's README instead (it migrates .repo-starter.lock and asks
+   me one question first), and skip the steps below. Otherwise (lower,
+   or the fetch fails): ignore the successor line and carry on below.
 
 Reinstall per the repo-starter install prompt (same source, same
 manifest) with these rules:
