@@ -36,6 +36,8 @@ CLAUDE.md                           thin Claude Code pointer (<40 lines)
 .claude/skills/tdd/SKILL.md
 .claude/skills/debugging/SKILL.md
 .claude/skills/review-pr/SKILL.md
+.claude/skills/ponytail/SKILL.md    smallest complete change (Builder)
+.claude/skills/laconic/SKILL.md     terse replies, only on request
 .repo-starter.lock                  receipt: every installed file + sha256
 ```
 
@@ -119,6 +121,8 @@ rules and skills are files in the repo, nothing calls out.
 - The AI-native SDLC playbook (Claude Academy):
   https://academy.claude.com/courses/ai-native-sdlc-playbook
 - Superpowers by Jesse Vincent (MIT): https://github.com/obra/superpowers
+- Ponytail by DietrichGebert (MIT): https://github.com/DietrichGebert/ponytail
+- laconic by Gabriel Barberini (MIT): https://github.com/GabrielBarberini/laconic
 - Based on repo-starter rules by klangche:
   https://github.com/klangche/repo-starter
 
@@ -145,7 +149,7 @@ These are the parts of v2 that are in none of the credited sources:
   portable `SKILL.md` files in the repo, so they load per trigger,
   work offline, and survive in agent types without the superpowers
   plugin.
-- The "Added by me" section itself: the four sources above define the
+- The "Added by me" section itself: the credited sources define the
   baseline; anything beyond it is listed here so credit stays honest.
 
 Only parts from this list are the owner's contribution; everything
