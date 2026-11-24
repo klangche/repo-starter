@@ -43,7 +43,7 @@ README):
 
 **Version check** (once per session, before the first task; skip when
 there is no `.repo-starter.lock`): read its `version` line (missing =
-2.0.0). Fetch line 1 of
+2.0.0). Fetch line 1 (`# version X.Y.Z`) of
 https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt.
 Newer there: ask the owner once, as a question with choices, "repo-starter
 <old> -> <new> is available. Update now?" Same major: recommend it.
@@ -238,8 +238,9 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 - Files installed and owned by repo-starter are exactly the paths in
   `MANIFEST.txt`. `CLAUDE.md` and `.github/copilot-instructions.md` are
   generated from this file; changing one means updating all three.
-- The installing agent writes `.repo-starter.lock`: every installed file
-  with its sha256. For `AGENTS.md` the hash covers only the text above
+- The installing agent writes `.repo-starter.lock`: first line
+  `version X.Y.Z` (from line 1 of `MANIFEST.txt`), then every installed
+  file with its sha256. For `AGENTS.md` the hash covers only the text above
   "## Project", because Setup fills that section. It is machine data:
   refreshed on update, read on uninstall.
 - Uninstall deletes an installed file only if its hash still matches the

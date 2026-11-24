@@ -54,15 +54,15 @@ Paste this into any agent in the target repository:
 Install repo-starter rules in this repository from https://github.com/klangche/repo-starter, branch main.
 
 1. Download https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt .
-2. Download every path listed (not `#` comments or the version line) from
+2. Download every path listed (skip `#` lines) from
    https://raw.githubusercontent.com/klangche/repo-starter/main/<path> and
    write it unchanged at the same path, creating folders as needed.
 3. Never overwrite any file that is not in the manifest. If AGENTS.md,
    CLAUDE.md or .github/copilot-instructions.md already exist, move
    their rules under "## Project" in the new AGENTS.md and quote the
    old text in the setup pull request.
-4. Write .repo-starter.lock: first line the manifest's version line
-   (`version X.Y.Z`), then one line per installed file, the path and
+4. Write .repo-starter.lock: first line `version X.Y.Z`, copied from
+   line 1 of the manifest, then one line per installed file, the path and
    its sha256 in plain text. For AGENTS.md, hash only the text above
    "## Project".
 5. Then follow the "Setup" command in the new AGENTS.md (ask me what is
@@ -125,6 +125,8 @@ Line 1 of `MANIFEST.txt` is the version. SemVer: patch = wording,
 minor = new files or rules that need nothing from the owner, major = an
 update may break something or needs the owner to act. Bump it in every
 pull request that changes a manifest file, and add one line here.
+Installs from before 2.1.0 get the check after one manual
+`update repo-starter`.
 
 - 2.1.0: ponytail and laconic skills, labels workflow, version check.
 - 2.0.0: canon in AGENTS.md, portable skills, install/update/uninstall

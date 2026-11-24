@@ -1,4 +1,4 @@
-version 2.1.0
+# version 2.1.0
 # repo-starter - files installed and owned by repo-starter. Line 1 is
 # the version (SemVer; major = an update may need owner action).
 # An installer agent downloads each path from main, writes it,
