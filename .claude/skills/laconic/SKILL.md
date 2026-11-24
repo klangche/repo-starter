@@ -13,7 +13,9 @@ https://github.com/GabrielBarberini/laconic.
 Say only what the reader cannot infer. Applies to chat replies only.
 Code, commands, paths, error strings, commit messages, issues and pull
 request descriptions stay complete and exact (AGENTS.md section 6).
-Stays on until the owner says "normal mode".
+Stays on until the owner says "normal mode". Never drops: pushback,
+uncertainty, what was not verified, review verdicts. AGENTS.md wins on
+conflict (sections 1, 4, 12).
 
 ## Rules
 

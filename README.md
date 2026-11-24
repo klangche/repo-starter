@@ -36,8 +36,8 @@ CLAUDE.md                           thin Claude Code pointer (<40 lines)
 .claude/skills/tdd/SKILL.md
 .claude/skills/debugging/SKILL.md
 .claude/skills/review-pr/SKILL.md
-.claude/skills/ponytail/SKILL.md     smallest complete change (Builder)
-.claude/skills/laconic/SKILL.md      terse replies, only on request
+.claude/skills/ponytail/SKILL.md    smallest complete change (Builder)
+.claude/skills/laconic/SKILL.md     terse replies, only on request
 .repo-starter.lock                  receipt: every installed file + sha256
 ```
 
