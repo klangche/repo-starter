@@ -41,6 +41,16 @@ README):
    every push to `main`/`dev`. Neither worked: tell the owner to run the
    workflow from the Actions tab. The Planner opens the first plan issue.
 
+**Version check** (once per session, before the first task; skip when
+there is no `.repo-starter.lock`): read its `version` line (missing =
+2.0.0). Fetch line 1 of
+https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt.
+Newer there: ask the owner once, as a question with choices, "repo-starter
+<old> -> <new> is available. Update now?" Same major: recommend it.
+New major: recommend reading the Versions list in the repo-starter README
+first, because it may need owner action. Yes: run Update. No, or the
+fetch fails: carry on, do not ask again this session.
+
 **Update** (owner types `update repo-starter`): follow the Update prompt in
 the repo-starter README (https://github.com/klangche/repo-starter). It
 overwrites the manifest files, restores the "## Project" section unchanged,

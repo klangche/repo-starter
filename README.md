@@ -54,14 +54,15 @@ Paste this into any agent in the target repository:
 Install repo-starter rules in this repository from https://github.com/klangche/repo-starter, branch main.
 
 1. Download https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt .
-2. Download every path listed from
+2. Download every path listed (not `#` comments or the version line) from
    https://raw.githubusercontent.com/klangche/repo-starter/main/<path> and
    write it unchanged at the same path, creating folders as needed.
 3. Never overwrite any file that is not in the manifest. If AGENTS.md,
    CLAUDE.md or .github/copilot-instructions.md already exist, move
    their rules under "## Project" in the new AGENTS.md and quote the
    old text in the setup pull request.
-4. Write .repo-starter.lock: one line per installed file, the path and
+4. Write .repo-starter.lock: first line the manifest's version line
+   (`version X.Y.Z`), then one line per installed file, the path and
    its sha256 in plain text. For AGENTS.md, hash only the text above
    "## Project".
 5. Then follow the "Setup" command in the new AGENTS.md (ask me what is
@@ -83,7 +84,8 @@ manifest) with these rules:
    of AGENTS.md): the manifest CLAUDE.md replaces it. Nothing else to
    move: the Project section lives in AGENTS.md.
 4. Write or refresh .repo-starter.lock from what is on disk after the
-   update. For AGENTS.md, hash only the text above "## Project".
+   update, with the new version line first. For AGENTS.md, hash only
+   the text above "## Project".
 5. Create the labels from AGENTS.md section 6 that are missing, if your
    tools can; skip existing ones. The labels workflow also creates them
    after the merge. Nothing else in repository settings.
@@ -98,7 +100,7 @@ Uninstall repo-starter from this repository.
 
 1. Read .repo-starter.lock. If it does not exist, stop and ask me:
    never guess what was installed.
-2. For each file in the receipt: sha256 unchanged -> delete it; changed
+2. For each file in the receipt (skip the version line): sha256 unchanged -> delete it; changed
    -> keep it and note it in the final report as "changed, kept".
    AGENTS.md is compared on the text above "## Project"; ask me before
    deleting it, because it holds the Project section.
@@ -114,7 +116,19 @@ Uninstall repo-starter from this repository.
 AGENTS.md is the only thing every session always reads (about 3,000
 tokens). Skills add their description line, and their body only when
 triggered. Subagents spend no context of the main session. Offline work: all
-rules and skills are files in the repo, nothing calls out.
+rules and skills are files in the repo. The only call out is the
+version check (one small file per session), skipped when offline.
+
+## Versions
+
+Line 1 of `MANIFEST.txt` is the version. SemVer: patch = wording,
+minor = new files or rules that need nothing from the owner, major = an
+update may break something or needs the owner to act. Bump it in every
+pull request that changes a manifest file, and add one line here.
+
+- 2.1.0: ponytail and laconic skills, labels workflow, version check.
+- 2.0.0: canon in AGENTS.md, portable skills, install/update/uninstall
+  with `.repo-starter.lock`.
 
 ## Credits
 

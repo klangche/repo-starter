@@ -13,6 +13,7 @@ only holds Claude Code specifics. Keep under 40 lines.
   vendored skills in `.claude/skills/` already cover planning, TDD,
   debugging, review and minimal code (`ponytail`), so plugins are a
   bonus, not a requirement. The full Ponytail plugin adds hooks: `/plugin marketplace add DietrichGebert/ponytail`.
+- Version check (`AGENTS.md` Commands): ask with `AskUserQuestion`.
 - Branches, pull requests and labels follow `AGENTS.md` §6 exactly.
   Label every issue and pull request on creation. Never merge, never
   push to `main`/`dev`.
