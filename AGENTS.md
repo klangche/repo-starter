@@ -164,8 +164,8 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
   description instead.
 - Never merge. Never approve your own pull request. Never push to `main`
   or `dev` (except creating `dev` in Setup). Never change repository
-  settings, rulesets, label definitions or secrets (except creating the
-  labels in Setup or Update); applying labels is required. If you pushed to
+  settings, rulesets, label definitions or secrets (the labels workflow
+  creates missing labels); applying labels is required. If you pushed to
   `main`/`dev` by mistake, stop and tell the owner. No force push.
 
 ## 7. Code

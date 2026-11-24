@@ -4,7 +4,6 @@ name: labels
 on:
   push:
     branches: [main, dev]
-    paths: [.github/workflows/labels.yml]
   workflow_dispatch:
 permissions:
   issues: write
