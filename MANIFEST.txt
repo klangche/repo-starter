@@ -1,4 +1,6 @@
-# repo-starter v2 - files installed and owned by repo-starter
+# version 2.1.0
+# repo-starter - files installed and owned by repo-starter. Line 1 is
+# the version (SemVer; major = an update may need owner action).
 # An installer agent downloads each path from main, writes it,
 # and records sha256(path) in .repo-starter.lock. Never write any other
 # file. README.md (the adopting project's own) is NOT in this manifest.
