@@ -31,6 +31,7 @@ goal of an increasingly wide de-facto standard.
 AGENTS.md                           canon, all agents (setup fills only "## Project")
 CLAUDE.md                           thin Claude Code pointer (<40 lines)
 .github/copilot-instructions.md     thin pointer, GitHub Copilot
+.github/workflows/labels.yml        creates missing labels on merge
 .claude/agents/code-reviewer.md     reviewer subagent (own context)
 .claude/skills/planning/SKILL.md
 .claude/skills/tdd/SKILL.md
@@ -83,8 +84,8 @@ manifest) with these rules:
    move: the Project section lives in AGENTS.md.
 4. Write or refresh .repo-starter.lock from what is on disk after the
    update. For AGENTS.md, hash only the text above "## Project".
-5. Create the labels from AGENTS.md section 6 that are missing in the
-   repository. Nothing else in repository settings.
+5. Labels: the labels workflow creates the missing ones after the merge.
+   Nothing else in repository settings.
 6. One pull request, branch docs/update-repo-starter, to dev (to main
    if there is no dev), with a per-file change report. Then stop.
 ```

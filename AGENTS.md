@@ -35,13 +35,15 @@ README):
 2. New repository: write `README.md` about the project (section 10).
    Existing repository: leave its README and code as they are.
 3. After the merge, create `dev` if it is missing, and make it the default
-   branch (owner action). The agent creates the labels from section 6
-   that are missing. The Planner opens the first plan issue.
+   branch (owner action). The labels workflow
+   (`.github/workflows/labels.yml`) creates the missing labels from
+   section 6 on merge; if it did not run, the owner starts it from the
+   Actions tab. The Planner opens the first plan issue.
 
 **Update** (owner types `update repo-starter`): follow the Update prompt in
 the repo-starter README (https://github.com/klangche/repo-starter). It
 overwrites the manifest files, restores the "## Project" section unchanged,
-creates the missing labels from section 6, and refreshes
+lets the labels workflow create missing labels, and refreshes
 `.repo-starter.lock`. Upgrading from v1 (no `MANIFEST.txt`
 files or `.repo-starter.lock` here): follow the same Update prompt.
 
