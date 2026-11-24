@@ -1,3 +1,8 @@
+> **repo-starter is replaced by Controlroom:**
+> https://github.com/klangche/Controlroom . New installs: use Controlroom.
+> Existing installs: `update repo-starter` migrates to Controlroom and
+> keeps your `## Project` section and every file you edited.
+
 ## Paste into Ai Prompt:
 
 ```text
@@ -53,6 +58,9 @@ Paste this into any agent in the target repository:
 ```text
 Install repo-starter rules in this repository from https://github.com/klangche/repo-starter, branch main.
 
+0. Line 2 of the manifest names a successor (`# successor <url>`):
+   install the successor instead, with the install prompt in its README,
+   and stop here.
 1. Download https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt .
 2. Download every path listed (skip `#` lines) from
    https://raw.githubusercontent.com/klangche/repo-starter/main/<path> and
@@ -74,6 +82,11 @@ Install repo-starter rules in this repository from https://github.com/klangche/r
 
 ```text
 update repo-starter
+
+0. Line 2 of https://raw.githubusercontent.com/klangche/repo-starter/main/MANIFEST.txt
+   names a successor (`# successor <url>`): follow the Update prompt in
+   the successor's README instead (it migrates .repo-starter.lock and
+   asks me one question first), and skip the steps below.
 
 Reinstall per the repo-starter install prompt (same source, same
 manifest) with these rules:
@@ -128,6 +141,13 @@ pull request that changes a manifest file, and add one line here.
 Installs from before 2.1.0 get the check after one manual
 `update repo-starter`.
 
+- 3.0.0: repo-starter is replaced by Controlroom
+  (https://github.com/klangche/Controlroom). `update repo-starter`
+  migrates: it asks which optional philosophies to add (Repo-Starter
+  stays the mandatory base), keeps "## Project" byte for byte and every
+  edited file, and replaces `.repo-starter.lock` with `.controlroom.lock`.
+  Owner action: answer the philosophy question. Uninstall of old installs
+  still works with the prompt below.
 - 2.1.0: ponytail and laconic skills, labels workflow, version check.
 - 2.0.0: canon in AGENTS.md, portable skills, install/update/uninstall
   with `.repo-starter.lock`.
