@@ -10,3 +10,5 @@ CLAUDE.md
 .claude/skills/tdd/SKILL.md
 .claude/skills/debugging/SKILL.md
 .claude/skills/review-pr/SKILL.md
+.claude/skills/ponytail/SKILL.md
+.claude/skills/laconic/SKILL.md

@@ -10,6 +10,9 @@ Based on:
   https://academy.claude.com/courses/ai-native-sdlc-playbook
 - Superpowers skill pack, https://github.com/obra/superpowers
   (MIT; tdd, review-pr, debugging and planning adapted in `.claude/skills/`)
+- Ponytail, https://github.com/DietrichGebert/ponytail (MIT; adapted as
+  `ponytail`), and laconic, https://github.com/GabrielBarberini/laconic
+  (MIT; adapted as `laconic`)
 - Owner: the person who owns the repository or fork. Never an AI.
 - Only the owner changes this file. Exceptions: the setup and update
   commands below, in a pull request the owner merges.
@@ -151,7 +154,9 @@ Plan, then steps. Everything in GitHub, nothing in extra files.
 - Skills, per role (in `.claude/skills/<name>/SKILL.md`; agents without
   a skill system read the same file tools):
   - Planner: `planning` (brainstorm, then plan and sub-issues).
-  - Builder: `tdd` for features, `debugging` for bugs.
+  - Builder: `ponytail` on every change, plus `tdd` for features,
+    `debugging` for bugs.
+  - Any role, only on the owner's request: `laconic` (terse chat replies).
   - Reviewer: `review-pr`.
 - No access to issues: put the plan and its checklist in the pull request
   description instead.

@@ -7,5 +7,5 @@ per step, target `dev`. Label every issue and pull request on creation
 
 Role files live in `.claude/`: skills under `skills/`, the reviewer
 subagent under `agents/`. When your task is
-planning, TDD, debugging or review, open the matching skill file and
+planning, building (`ponytail`), TDD, debugging or review, open the matching skill file and
 follow it before starting.
